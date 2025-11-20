@@ -89,6 +89,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            onTapOutside: (_) => FocusManager.instance.primaryFocus!.unfocus(),
             maxLines: widget.maxLines ?? 1,
             controller: widget.controller,
             focusNode: widget.focusNode,

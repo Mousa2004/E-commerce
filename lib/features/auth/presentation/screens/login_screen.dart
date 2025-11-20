@@ -24,8 +24,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController(
+    text: "mousa2692004@gmail.com",
+  );
+  final _passwordController = TextEditingController(text: "6292004@mam");
   var viewModel = getIt<AuthCubit>();
   @override
   Widget build(BuildContext context) {

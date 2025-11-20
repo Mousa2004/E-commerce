@@ -26,6 +26,7 @@ import '../../features/auth/domin/repositories/auth_repository.dart' as _i333;
 import '../../features/auth/domin/use_cases/login_use_case.dart' as _i210;
 import '../../features/auth/domin/use_cases/register_use_case.dart' as _i263;
 import '../../features/auth/presentation/cubit/auth_cubit.dart' as _i117;
+import '../../features/home/presentation/cubit/home_cubit.dart' as _i9;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -35,6 +36,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioMedule = _$DioMedule();
+    gh.factory<_i9.HomeCubit>(() => _i9.HomeCubit());
     gh.singleton<_i361.BaseOptions>(() => dioMedule.provideBaseOptions());
     gh.singleton<_i528.PrettyDioLogger>(
       () => dioMedule.providePrettyDioLogger(),
