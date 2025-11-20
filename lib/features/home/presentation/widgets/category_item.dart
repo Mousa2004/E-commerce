@@ -11,9 +11,7 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed(
-        Routes.products,
-      ),
+      onTap: () => Navigator.of(context).pushNamed(Routes.products),
       child: Column(
         children: [
           ClipRRect(
@@ -21,9 +19,7 @@ class CategoryItem extends StatelessWidget {
             child: Container(
               height: 100.h,
               width: 100.w,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-              ),
+              decoration: const BoxDecoration(shape: BoxShape.circle),
               child: CachedNetworkImage(
                 imageUrl:
                     'https://helios-i.mashable.com/imagery/articles/05djrP5PjtVB7CcMtvrTOAP/images-4.fill.size_2000x1125.v1723100793.jpg',
@@ -34,8 +30,10 @@ class CategoryItem extends StatelessWidget {
           SizedBox(height: 8.h),
           Text(
             'Laptops',
-            style:
-                getRegularStyle(color: ColorManager.darkBlue, fontSize: 14.sp),
+            style: getRegularStyle(
+              color: ColorManager.darkBlue,
+              fontSize: 14.sp,
+            ),
           ),
         ],
       ),

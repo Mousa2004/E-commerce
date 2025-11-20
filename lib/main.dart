@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ecommerce/core/app_bloc_observer.dart';
+import 'package:ecommerce/core/injctable/di.dart';
 import 'package:ecommerce/core/routes/route_generator.dart';
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = AppBlocObserver();
+  configureDependencies();
   runApp(const ECommerceApp());
 }
 

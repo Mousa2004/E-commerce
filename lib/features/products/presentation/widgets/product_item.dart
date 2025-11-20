@@ -14,9 +14,7 @@ class ProductItem extends StatelessWidget {
     final Size screenSize = MediaQuery.sizeOf(context);
 
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed(
-        Routes.productDetails,
-      ),
+      onTap: () => Navigator.of(context).pushNamed(Routes.productDetails),
       child: Container(
         width: screenSize.width * 0.4,
         height: screenSize.height * 0.3,
@@ -36,8 +34,9 @@ class ProductItem extends StatelessWidget {
                 alignment: AlignmentDirectional.center,
                 children: [
                   ClipRRect(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(14.r)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(14.r),
+                    ),
                     child: CachedNetworkImage(
                       imageUrl:
                           'https://pl.kicksmaniac.com/zdjecia/2022/08/23/508/43/NIKE_AIR_JORDAN_1_RETRO_HIGH_GS_RARE_AIR_MAX_ORANGE-mini.jpg',
@@ -92,10 +91,7 @@ class ProductItem extends StatelessWidget {
                               fontSize: 14.sp,
                             ),
                           ),
-                          Text(
-                            '499',
-                            style: getTextWithLine(),
-                          ),
+                          Text('499', style: getTextWithLine()),
                         ],
                       ),
                     ),
@@ -132,10 +128,7 @@ class ProductItem extends StatelessWidget {
                                 shape: BoxShape.circle,
                                 color: ColorManager.primary,
                               ),
-                              child: const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
+                              child: const Icon(Icons.add, color: Colors.white),
                             ),
                           ),
                         ),

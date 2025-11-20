@@ -6,6 +6,7 @@ import 'package:ecommerce/features/home/presentation/widgets/home_tab.dart';
 import 'package:ecommerce/features/profile/presentation/widgets/profile_tab.dart';
 import 'package:ecommerce/features/wishlist/presentation/widgets/wishlist_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen();
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           topEnd: Radius.circular(15),
         ),
         child: SizedBox(
-          height: MediaQuery.sizeOf(context).height * 0.1,
+          height: MediaQuery.sizeOf(context).height * 0.12.h,
           child: BottomNavigationBar(
             currentIndex: currentIndex,
             onTap: (value) => changeSelectedIndex(value),
@@ -66,20 +67,17 @@ class CustomBottomNavBarItem extends BottomNavigationBarItem {
   final String title;
 
   CustomBottomNavBarItem(this.iconPath, this.title)
-      : super(
-          label: title,
-          icon: ImageIcon(
+    : super(
+        label: title,
+        icon: ImageIcon(AssetImage(iconPath), color: ColorManager.white),
+        activeIcon: CircleAvatar(
+          radius: 12.r,
+          backgroundColor: ColorManager.white,
+          child: ImageIcon(
             AssetImage(iconPath),
-            color: ColorManager.white,
+            color: ColorManager.primary,
+            size: 14,
           ),
-          activeIcon: CircleAvatar(
-            radius: 12,
-            backgroundColor: ColorManager.white,
-            child: ImageIcon(
-              AssetImage(iconPath),
-              color: ColorManager.primary,
-              size: 14,
-            ),
-          ),
-        );
+        ),
+      );
 }

@@ -15,9 +15,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeScreenAppBar(
-        automaticallyImplyLeading: true,
-      ),
+      appBar: const HomeScreenAppBar(automaticallyImplyLeading: true),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
