@@ -16,7 +16,6 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
 import '../../features/auth/auth_api/data_sources/remote/auth_remote_data_sources_impl.dart'
     as _i716;
-import '../../features/auth/auth_api/dio/dio_medule.dart' as _i411;
 import '../../features/auth/auth_api/web_service.dart' as _i608;
 import '../../features/auth/data/data_sources/remote/auth_remote_data_sources.dart'
     as _i8;
@@ -27,6 +26,20 @@ import '../../features/auth/domin/use_cases/login_use_case.dart' as _i210;
 import '../../features/auth/domin/use_cases/register_use_case.dart' as _i263;
 import '../../features/auth/presentation/cubit/auth_cubit.dart' as _i117;
 import '../../features/home/presentation/cubit/home_cubit.dart' as _i9;
+import '../../features/home_tab/data/data_sources/remote/home_tap_remote_data_sources.dart'
+    as _i1048;
+import '../../features/home_tab/data/repositories/home_tab_repository_impl.dart'
+    as _i129;
+import '../../features/home_tab/domin/repositories/home_tab_repository.dart'
+    as _i940;
+import '../../features/home_tab/domin/use_cases/home_tab_use_case.dart'
+    as _i1026;
+import '../../features/home_tab/home_tap_api/data_sources/remote/home_tap_remote_data_sources_impl.dart'
+    as _i45;
+import '../../features/home_tab/home_tap_api/home_web_server.dart' as _i350;
+import '../../features/home_tab/presentation/cubit/home_tab_cubit.dart'
+    as _i1069;
+import '../dio/dio_medule.dart' as _i322;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -50,6 +63,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i608.WebService>(
       () => dioMedule.provideWebService(gh<_i361.Dio>()),
     );
+    gh.singleton<_i350.HomeWebServer>(
+      () => dioMedule.provideHomeWebServer(gh<_i361.Dio>()),
+    );
     gh.factory<_i8.AuthRemoteDataSources>(
       () => _i716.AuthRemoteDataSourcesImpl(webService: gh<_i608.WebService>()),
     );
@@ -58,11 +74,21 @@ extension GetItInjectableX on _i174.GetIt {
         remoteDataSources: gh<_i8.AuthRemoteDataSources>(),
       ),
     );
+    gh.factory<_i1048.HomeTapRemoteDataSources>(
+      () => _i45.HomeTapRemoteDataSourcesImpl(
+        homeWebServer: gh<_i350.HomeWebServer>(),
+      ),
+    );
     gh.factory<_i263.RegisterUseCase>(
       () => _i263.RegisterUseCase(athRepository: gh<_i333.AuthRepository>()),
     );
     gh.factory<_i210.LoginUseCase>(
       () => _i210.LoginUseCase(authRepository: gh<_i333.AuthRepository>()),
+    );
+    gh.factory<_i940.HomeTabRepository>(
+      () => _i129.HomeTabRepositoryImpl(
+        homeTapRemoteDataSources: gh<_i1048.HomeTapRemoteDataSources>(),
+      ),
     );
     gh.factory<_i117.AuthCubit>(
       () => _i117.AuthCubit(
@@ -70,8 +96,16 @@ extension GetItInjectableX on _i174.GetIt {
         registerUseCase: gh<_i263.RegisterUseCase>(),
       ),
     );
+    gh.factory<_i1026.HomeTabUseCase>(
+      () => _i1026.HomeTabUseCase(
+        homeTabRepository: gh<_i940.HomeTabRepository>(),
+      ),
+    );
+    gh.factory<_i1069.HomeTabCubit>(
+      () => _i1069.HomeTabCubit(homeTabUseCase: gh<_i1026.HomeTabUseCase>()),
+    );
     return this;
   }
 }
 
-class _$DioMedule extends _i411.DioMedule {}
+class _$DioMedule extends _i322.DioMedule {}

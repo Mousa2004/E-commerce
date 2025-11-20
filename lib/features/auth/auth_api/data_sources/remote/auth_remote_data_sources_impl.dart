@@ -1,6 +1,6 @@
-import 'package:ecommerce/features/auth/auth_api/mapper/auth_response_mapper.dart';
-import 'package:ecommerce/features/auth/auth_api/mapper/login_request_mapper.dart';
-import 'package:ecommerce/features/auth/auth_api/mapper/register_request_mapper.dart';
+import 'package:ecommerce/core/mapper/auth_response_mapper.dart';
+import 'package:ecommerce/core/mapper/login_request_mapper.dart';
+import 'package:ecommerce/core/mapper/register_request_mapper.dart';
 import 'package:ecommerce/features/auth/auth_api/web_service.dart';
 import 'package:ecommerce/features/auth/data/data_sources/remote/auth_remote_data_sources.dart';
 import 'package:ecommerce/features/auth/domin/entities/request/login_request_dto.dart';
