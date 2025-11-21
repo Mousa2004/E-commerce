@@ -39,6 +39,18 @@ import '../../features/home_tab/home_tap_api/data_sources/remote/home_tap_remote
 import '../../features/home_tab/home_tap_api/home_web_server.dart' as _i350;
 import '../../features/home_tab/presentation/cubit/home_tab_cubit.dart'
     as _i1069;
+import '../../features/products/data/data_sources/remote/product_remote_data_sources.dart'
+    as _i827;
+import '../../features/products/data/repositories/product_repository_impl.dart'
+    as _i764;
+import '../../features/products/domin/repositories/product_repository.dart'
+    as _i80;
+import '../../features/products/domin/use_cases/product_use_case.dart' as _i922;
+import '../../features/products/presentation/cubit/product_cubit.dart' as _i661;
+import '../../features/products/product_tap_api/data_sources/remote/product_remote_data_sources_impl.dart'
+    as _i753;
+import '../../features/products/product_tap_api/product_web_server.dart'
+    as _i341;
 import '../dio/dio_medule.dart' as _i322;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -66,12 +78,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i350.HomeWebServer>(
       () => dioMedule.provideHomeWebServer(gh<_i361.Dio>()),
     );
+    gh.singleton<_i341.ProductWebServer>(
+      () => dioMedule.provideProductWebServer(gh<_i361.Dio>()),
+    );
     gh.factory<_i8.AuthRemoteDataSources>(
       () => _i716.AuthRemoteDataSourcesImpl(webService: gh<_i608.WebService>()),
     );
     gh.factory<_i333.AuthRepository>(
       () => _i153.AuthRepositoryImpl(
         remoteDataSources: gh<_i8.AuthRemoteDataSources>(),
+      ),
+    );
+    gh.factory<_i827.ProductRemoteDataSources>(
+      () => _i753.ProductRemoteDataSourcesImpl(
+        productWebServer: gh<_i341.ProductWebServer>(),
       ),
     );
     gh.factory<_i1048.HomeTapRemoteDataSources>(
@@ -85,6 +105,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i210.LoginUseCase>(
       () => _i210.LoginUseCase(authRepository: gh<_i333.AuthRepository>()),
     );
+    gh.factory<_i80.ProductRepository>(
+      () => _i764.ProductRepositoryImpl(
+        productRemoteDataSources: gh<_i827.ProductRemoteDataSources>(),
+      ),
+    );
     gh.factory<_i940.HomeTabRepository>(
       () => _i129.HomeTabRepositoryImpl(
         homeTapRemoteDataSources: gh<_i1048.HomeTapRemoteDataSources>(),
@@ -95,6 +120,13 @@ extension GetItInjectableX on _i174.GetIt {
         loginUseCase: gh<_i210.LoginUseCase>(),
         registerUseCase: gh<_i263.RegisterUseCase>(),
       ),
+    );
+    gh.factory<_i922.ProductUseCase>(
+      () =>
+          _i922.ProductUseCase(productRepository: gh<_i80.ProductRepository>()),
+    );
+    gh.factory<_i661.ProductCubit>(
+      () => _i661.ProductCubit(productUseCase: gh<_i922.ProductUseCase>()),
     );
     gh.factory<_i1026.HomeTabUseCase>(
       () => _i1026.HomeTabUseCase(

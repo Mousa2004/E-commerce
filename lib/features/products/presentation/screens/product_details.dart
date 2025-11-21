@@ -3,6 +3,7 @@ import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
 import 'package:ecommerce/core/widgets/custom_elevated_button.dart';
 import 'package:ecommerce/core/widgets/product_counter.dart';
+import 'package:ecommerce/features/products/domin/entities/product.dart';
 import 'package:ecommerce/features/products/presentation/widgets/product_description.dart';
 import 'package:ecommerce/features/products/presentation/widgets/product_image.dart';
 import 'package:ecommerce/features/products/presentation/widgets/product_label.dart';
@@ -23,6 +24,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final product = ModalRoute.of(context)?.settings.arguments as Product;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -60,22 +62,24 @@ class _ProductDetailsState extends State<ProductDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ProductSlider(
-                items: [
-                  'https://pl.kicksmaniac.com/zdjecia/2022/08/23/508/43/NIKE_AIR_JORDAN_1_RETRO_HIGH_GS_RARE_AIR_MAX_ORANGE-mini.jpg',
-                  'https://pl.kicksmaniac.com/zdjecia/2022/08/23/508/43/NIKE_AIR_JORDAN_1_RETRO_HIGH_GS_RARE_AIR_MAX_ORANGE-mini.jpg',
-                ].map((imageURL) => ProductImage(imageUrl: imageURL)).toList(),
+                items: product.images!
+                    .map((imageURL) => ProductImage(imageUrl: imageURL))
+                    .toList(),
                 initialIndex: 0,
               ),
               SizedBox(height: 24.h),
-              const ProductLabel(
-                name: 'Nike Air Jordon Nike shoes flexible for wo..',
-                price: 'EGP 399',
+              ProductLabel(
+                name: product.title ?? "",
+                price: 'EGP ${product.price}',
               ),
               SizedBox(height: 16.h),
               Row(
                 children: [
-                  const Expanded(
-                    child: ProductRating(buyers: '1324', rating: '4.8 (853)'),
+                  Expanded(
+                    child: ProductRating(
+                      buyers: '${product.sold}',
+                      rating: '${product.ratingsAverage} (${product.quantity})',
+                    ),
                   ),
                   ProductCounter(
                     initialValue: _quantity,
@@ -89,10 +93,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ],
               ),
               SizedBox(height: 16.h),
-              const ProductDescription(
-                description:
-                    'Nike is a multinational corporation that designs, develops, and sells athletic footwear ,apparel, and accessories.',
-              ),
+              ProductDescription(description: product.description ?? ""),
               SizedBox(height: 48.h),
               Row(
                 children: [
@@ -106,7 +107,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       SizedBox(height: 12.h),
                       Text(
-                        'EGP 399',
+                        'EGP ${product.price}',
                         style: getMediumStyle(
                           color: ColorManager.appBarTitle,
                         ).copyWith(fontSize: 18.sp),

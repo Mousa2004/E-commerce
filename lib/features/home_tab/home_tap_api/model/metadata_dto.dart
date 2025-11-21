@@ -7,6 +7,7 @@ class MetadataDto {
   int? currentPage;
   int? numberOfPages;
   int? limit;
+  int? nextPage;
 
   MetadataDto({this.currentPage, this.numberOfPages, this.limit});
 
