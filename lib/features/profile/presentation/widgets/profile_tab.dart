@@ -1,8 +1,10 @@
+import 'package:ecommerce/core/cache/shared_prefrence_utls.dart';
 import 'package:ecommerce/core/resources/assets_manager.dart';
 import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/font_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
 import 'package:ecommerce/core/resources/values_manager.dart';
+import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/utils/validator.dart';
 import 'package:ecommerce/core/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -32,13 +34,32 @@ class ProfileTabState extends State<ProfileTab> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SvgPicture.asset(
-                SvgAssets.route,
-                height: Sizes.s40.h,
-                colorFilter: const ColorFilter.mode(
-                  ColorManager.primary,
-                  BlendMode.srcIn,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset(
+                    SvgAssets.route,
+                    height: Sizes.s40.h,
+                    colorFilter: const ColorFilter.mode(
+                      ColorManager.primary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      //remove token
+                      SharedPrefrenceUtls.removeData(key: "token");
+                      Navigator.of(
+                        context,
+                      ).pushNamedAndRemoveUntil(Routes.login, (route) => false);
+                    },
+                    icon: const Icon(
+                      Icons.logout,
+                      size: 30,
+                      color: ColorManager.error,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: Sizes.s20.h),
               Text(

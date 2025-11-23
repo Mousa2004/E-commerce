@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ecommerce/core/app_bloc_observer.dart';
+import 'package:ecommerce/core/cache/shared_prefrence_utls.dart';
 import 'package:ecommerce/core/injctable/di.dart';
 import 'package:ecommerce/core/routes/route_generator.dart';
 import 'package:ecommerce/core/routes/routes.dart';
@@ -10,13 +11,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefrenceUtls.init();
   Bloc.observer = AppBlocObserver();
   configureDependencies();
-  runApp(const ECommerceApp());
+  String routeName;
+  final token = SharedPrefrenceUtls.getData(key: "token");
+
+  if (token == null) {
+    routeName = Routes.login;
+  } else {
+    routeName = Routes.home;
+  }
+
+  runApp(ECommerceApp(routeName: routeName));
 }
 
 class ECommerceApp extends StatelessWidget {
-  const ECommerceApp();
+  final String routeName;
+  const ECommerceApp({required this.routeName});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +36,10 @@ class ECommerceApp extends StatelessWidget {
       designSize: const Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, __) => const MaterialApp(
+      builder: (_, __) => MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.login,
+        initialRoute: routeName,
       ),
     );
   }

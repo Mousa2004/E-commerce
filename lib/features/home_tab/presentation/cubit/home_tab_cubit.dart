@@ -27,9 +27,9 @@ class HomeTabCubit extends Cubit<HomeTabState> {
       emit(HomeTabSuccessState(categoryList: categoryList ?? []));
     } on DioException catch (e) {
       final message = (e.error as AppException).message;
-      throw ServerException(message: message);
+      emit(HomeTabErrorState(message: message!));
     } on AppException catch (e) {
-      throw NetworkException(message: e.message);
+      emit(HomeTabErrorState(message: e.message!));
     }
   }
 }

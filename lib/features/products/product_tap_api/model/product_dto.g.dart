@@ -10,8 +10,7 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => ProductDto(
   sold: (json['sold'] as num?)?.toInt(),
   images: (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
   subcategory: (json['subcategory'] as List<dynamic>?)
-      ?.whereType<Map<String, dynamic>>() // يتأكد من النوع
-      .map((e) => SubcategoryDto.fromJson(e))
+      ?.map((e) => SubcategoryDto.fromJson(e as Map<String, dynamic>))
       .toList(),
   ratingsQuantity: (json['ratingsQuantity'] as num?)?.toInt(),
   id: json['_id'] as String?,
@@ -21,12 +20,12 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => ProductDto(
   quantity: (json['quantity'] as num?)?.toInt(),
   price: (json['price'] as num?)?.toInt(),
   imageCover: json['imageCover'] as String?,
-  category: json['category'] is Map<String, dynamic>
-      ? CategoryDto.fromJson(json['category'])
-      : null,
-  brand: json['brand'] is Map<String, dynamic>
-      ? BrandDto.fromJson(json['brand'])
-      : null,
+  category: json['category'] == null
+      ? null
+      : CategoryDto.fromJson(json['category'] as Map<String, dynamic>),
+  brand: json['brand'] == null
+      ? null
+      : BrandDto.fromJson(json['brand'] as Map<String, dynamic>),
   ratingsAverage: (json['ratingsAverage'] as num?)?.toDouble(),
   createdAt: json['createdAt'] == null
       ? null

@@ -9,8 +9,17 @@ class BrandDto {
   String? name;
   String? slug;
   String? image;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
-  BrandDto({this.id, this.name, this.slug, this.image});
+  BrandDto({
+    this.id,
+    this.name,
+    this.slug,
+    this.image,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   factory BrandDto.fromJson(Map<String, dynamic> json) =>
       _$BrandDtoFromJson(json);

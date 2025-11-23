@@ -1,5 +1,5 @@
+import 'package:ecommerce/features/home_tab/domin/entities/brand.dart';
 import 'package:ecommerce/features/home_tab/domin/entities/category.dart';
-import 'package:ecommerce/features/products/domin/entities/brand.dart';
 import 'package:ecommerce/features/products/domin/entities/subcategory.dart';
 
 class Product {

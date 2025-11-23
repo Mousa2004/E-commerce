@@ -24,4 +24,8 @@ class SharedPrefrenceUtls {
   static Object? getData({required String key}) {
     return sharedPref.get(key);
   }
+
+  static Future<bool> removeData({required String key}) {
+    return sharedPref.remove(key);
+  }
 }

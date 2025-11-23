@@ -32,11 +32,15 @@ import '../../features/home_tab/data/repositories/home_tab_repository_impl.dart'
     as _i129;
 import '../../features/home_tab/domin/repositories/home_tab_repository.dart'
     as _i940;
+import '../../features/home_tab/domin/use_cases/home_tab_brand_use_case.dart'
+    as _i994;
 import '../../features/home_tab/domin/use_cases/home_tab_use_case.dart'
     as _i1026;
 import '../../features/home_tab/home_tap_api/data_sources/remote/home_tap_remote_data_sources_impl.dart'
     as _i45;
 import '../../features/home_tab/home_tap_api/home_web_server.dart' as _i350;
+import '../../features/home_tab/presentation/cubit/home_tab_brand_cubit.dart'
+    as _i678;
 import '../../features/home_tab/presentation/cubit/home_tab_cubit.dart'
     as _i1069;
 import '../../features/products/data/data_sources/remote/product_remote_data_sources.dart'
@@ -128,9 +132,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i661.ProductCubit>(
       () => _i661.ProductCubit(productUseCase: gh<_i922.ProductUseCase>()),
     );
+    gh.factory<_i994.HomeTabBrandUseCase>(
+      () => _i994.HomeTabBrandUseCase(
+        homeTabRepository: gh<_i940.HomeTabRepository>(),
+      ),
+    );
     gh.factory<_i1026.HomeTabUseCase>(
       () => _i1026.HomeTabUseCase(
         homeTabRepository: gh<_i940.HomeTabRepository>(),
+      ),
+    );
+    gh.factory<_i678.HomeTabBrandCubit>(
+      () => _i678.HomeTabBrandCubit(
+        homeTabBrandUseCase: gh<_i994.HomeTabBrandUseCase>(),
       ),
     );
     gh.factory<_i1069.HomeTabCubit>(

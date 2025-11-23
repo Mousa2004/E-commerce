@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/home_tab/home_tap_api/model/metadata_dto.dart';
+import 'package:ecommerce/features/home_tab/home_tap_api/model/category/metadata_dto.dart';
 import 'package:ecommerce/features/products/product_tap_api/model/product_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 

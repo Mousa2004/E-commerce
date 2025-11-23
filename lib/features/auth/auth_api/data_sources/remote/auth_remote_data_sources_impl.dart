@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/cache/shared_prefrence_utls.dart';
 import 'package:ecommerce/core/mapper/auth_response_mapper.dart';
 import 'package:ecommerce/core/mapper/login_request_mapper.dart';
 import 'package:ecommerce/core/mapper/register_request_mapper.dart';
@@ -18,6 +19,10 @@ class AuthRemoteDataSourcesImpl implements AuthRemoteDataSources {
     final authResponse = await webService.login(
       loginRequest.convertToLoginRequest(),
     );
+
+    //todo: Save token
+    SharedPrefrenceUtls.saveData(key: "token", value: authResponse.token);
+
     //todo:AuthResponse => AuthResponseDto
     return authResponse.convetToAuthResponseDto();
   }

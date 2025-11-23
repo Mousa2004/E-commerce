@@ -1,5 +1,5 @@
-import 'package:ecommerce/features/products/domin/entities/brand.dart';
-import 'package:ecommerce/features/products/product_tap_api/model/brand_dto.dart';
+import 'package:ecommerce/features/home_tab/domin/entities/brand.dart';
+import 'package:ecommerce/features/home_tab/home_tap_api/model/brands/brand_dto.dart';
 
 extension BrandMapper on BrandDto {
   Brand convertToBrand() {

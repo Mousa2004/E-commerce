@@ -1,5 +1,5 @@
-import 'package:ecommerce/features/home_tab/home_tap_api/model/category_dto.dart';
-import 'package:ecommerce/features/products/product_tap_api/model/brand_dto.dart';
+import 'package:ecommerce/features/home_tab/home_tap_api/model/brands/brand_dto.dart';
+import 'package:ecommerce/features/home_tab/home_tap_api/model/category/category_dto.dart';
 import 'package:ecommerce/features/products/product_tap_api/model/subcategory_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
