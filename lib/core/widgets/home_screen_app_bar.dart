@@ -1,10 +1,15 @@
+import 'package:badges/badges.dart' as badges;
 import 'package:ecommerce/core/resources/assets_manager.dart';
 import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/font_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
 import 'package:ecommerce/core/resources/values_manager.dart';
 import 'package:ecommerce/core/routes/routes.dart';
+import 'package:ecommerce/core/utils/ui_utils.dart';
+import 'package:ecommerce/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:ecommerce/features/cart/presentation/cubit/cart_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -88,12 +93,49 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
               ),
-              IconButton(
-                onPressed: () => Navigator.of(context).pushNamed(Routes.cart),
-                icon: const ImageIcon(
-                  AssetImage(IconsAssets.cart),
-                  color: ColorManager.primary,
-                ),
+
+              BlocConsumer<CartCubit, CartState>(
+                listener: (context, state) {
+                  if (state is CartSuccessState) {
+                    return UIUtils.showMessage("Add cart successfully");
+                  }
+                },
+                builder: (context, state) {
+                  int cartCount = 0;
+                  if (state is CartSuccessState) {
+                    cartCount = state.numOfCartItems!;
+                  }
+                  return cartCount == 0
+                      ? IconButton(
+                          onPressed: () =>
+                              Navigator.of(context).pushNamed(Routes.cart),
+                          icon: const ImageIcon(
+                            AssetImage(IconsAssets.cart),
+                            color: ColorManager.primary,
+                          ),
+                        )
+                      : badges.Badge(
+                          badgeContent: Text(
+                            "$cartCount",
+                            style: getSemiBoldStyle(color: ColorManager.white),
+                          ),
+                          badgeStyle: const badges.BadgeStyle(
+                            badgeColor: ColorManager.green,
+                          ),
+                          position: badges.BadgePosition.topEnd(
+                            top: -5,
+                            end: 0,
+                          ),
+                          child: IconButton(
+                            onPressed: () =>
+                                Navigator.of(context).pushNamed(Routes.cart),
+                            icon: const ImageIcon(
+                              AssetImage(IconsAssets.cart),
+                              color: ColorManager.primary,
+                            ),
+                          ),
+                        );
+                },
               ),
             ],
           ),

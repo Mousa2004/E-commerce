@@ -20,4 +20,5 @@ class ColorManager {
   static const Color grey2 = Color(0xff797979);
   static const Color white = Color(0xffFFFFFF);
   static const Color error = Color(0xffe61f34);
+  static const Color green = Color.fromARGB(255, 5, 190, 113);
 }

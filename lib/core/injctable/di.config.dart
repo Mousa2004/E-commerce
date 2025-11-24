@@ -25,6 +25,17 @@ import '../../features/auth/domin/repositories/auth_repository.dart' as _i333;
 import '../../features/auth/domin/use_cases/login_use_case.dart' as _i210;
 import '../../features/auth/domin/use_cases/register_use_case.dart' as _i263;
 import '../../features/auth/presentation/cubit/auth_cubit.dart' as _i117;
+import '../../features/cart/cart_api/cart_web_service.dart' as _i75;
+import '../../features/cart/cart_api/data_sources/remote/add_cart_remote_data_sources_impl.dart'
+    as _i985;
+import '../../features/cart/data/data_sources/remote/add_cart_remote_data_sources.dart'
+    as _i118;
+import '../../features/cart/data/repositories/add_cart_repository_impl.dart'
+    as _i580;
+import '../../features/cart/domin/repositories/add_cart_repository.dart'
+    as _i520;
+import '../../features/cart/domin/use_cases/add_cart_use_case.dart' as _i903;
+import '../../features/cart/presentation/cubit/cart_cubit.dart' as _i499;
 import '../../features/home/presentation/cubit/home_cubit.dart' as _i9;
 import '../../features/home_tab/data/data_sources/remote/home_tap_remote_data_sources.dart'
     as _i1048;
@@ -85,6 +96,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i341.ProductWebServer>(
       () => dioMedule.provideProductWebServer(gh<_i361.Dio>()),
     );
+    gh.singleton<_i75.CartWebService>(
+      () => dioMedule.provideCartWebService(gh<_i361.Dio>()),
+    );
     gh.factory<_i8.AuthRemoteDataSources>(
       () => _i716.AuthRemoteDataSourcesImpl(webService: gh<_i608.WebService>()),
     );
@@ -96,6 +110,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i827.ProductRemoteDataSources>(
       () => _i753.ProductRemoteDataSourcesImpl(
         productWebServer: gh<_i341.ProductWebServer>(),
+      ),
+    );
+    gh.factory<_i118.AddCartRemoteDataSources>(
+      () => _i985.AddCartRemoteDataSourcesImpl(
+        cartWebService: gh<_i75.CartWebService>(),
       ),
     );
     gh.factory<_i1048.HomeTapRemoteDataSources>(
@@ -129,6 +148,11 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i922.ProductUseCase(productRepository: gh<_i80.ProductRepository>()),
     );
+    gh.factory<_i520.AddCartRepository>(
+      () => _i580.AddCartRepositoryImpl(
+        addCartRemoteDataSources: gh<_i118.AddCartRemoteDataSources>(),
+      ),
+    );
     gh.factory<_i661.ProductCubit>(
       () => _i661.ProductCubit(productUseCase: gh<_i922.ProductUseCase>()),
     );
@@ -147,8 +171,16 @@ extension GetItInjectableX on _i174.GetIt {
         homeTabBrandUseCase: gh<_i994.HomeTabBrandUseCase>(),
       ),
     );
+    gh.factory<_i903.AddCartUseCase>(
+      () => _i903.AddCartUseCase(
+        addCartRepository: gh<_i520.AddCartRepository>(),
+      ),
+    );
     gh.factory<_i1069.HomeTabCubit>(
       () => _i1069.HomeTabCubit(homeTabUseCase: gh<_i1026.HomeTabUseCase>()),
+    );
+    gh.factory<_i499.CartCubit>(
+      () => _i499.CartCubit(addCartUseCase: gh<_i903.AddCartUseCase>()),
     );
     return this;
   }

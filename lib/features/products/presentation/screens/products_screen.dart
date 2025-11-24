@@ -20,6 +20,7 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   final viewModel = getIt<ProductCubit>();
+
   @override
   void initState() {
     super.initState();
