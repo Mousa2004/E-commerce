@@ -21,7 +21,6 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   int _quantity = 1;
-
   @override
   Widget build(BuildContext context) {
     final product = ModalRoute.of(context)?.settings.arguments as Product;

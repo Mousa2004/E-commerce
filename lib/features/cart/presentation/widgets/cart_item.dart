@@ -4,13 +4,15 @@ import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/font_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
 import 'package:ecommerce/core/resources/values_manager.dart';
-import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/widgets/product_counter.dart';
+import 'package:ecommerce/features/cart/domin/entities/get_cart/get_cart_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem();
+  final GetCartProduct cartProduct;
+  final void Function()? onTap;
+  const CartItem({required this.cartProduct, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class CartItem extends StatelessWidget {
     final height = MediaQuery.sizeOf(context).height;
 
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed(Routes.productDetails),
+      onTap: onTap,
       child: Container(
         height: isPortrait ? height * 0.14 : width * 0.23,
         decoration: BoxDecoration(
@@ -38,8 +40,7 @@ class CartItem extends StatelessWidget {
                 ),
               ),
               child: CachedNetworkImage(
-                imageUrl:
-                    'https://pl.kicksmaniac.com/zdjecia/2022/08/23/508/43/NIKE_AIR_JORDAN_1_RETRO_HIGH_GS_RARE_AIR_MAX_ORANGE-mini.jpg',
+                imageUrl: cartProduct.product?.imageCover ?? "",
                 fit: BoxFit.cover,
                 height: isPortrait ? height * 0.142 : height * 0.23,
                 width: isPortrait ? width * 0.29 : 165.w,
@@ -60,7 +61,7 @@ class CartItem extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            'Nike Air Jordon Nike shoes flexible for wo..',
+                            cartProduct.product?.title ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: getBoldStyle(
@@ -84,7 +85,7 @@ class CartItem extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            'EGP 399',
+                            'EGP ${cartProduct.price ?? 0}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: getBoldStyle(
@@ -94,7 +95,7 @@ class CartItem extends StatelessWidget {
                           ),
                         ),
                         ProductCounter(
-                          initialValue: 1,
+                          initialValue: cartProduct.count!,
                           onIncrement: (quantity) {},
                           onDecrement: (quantity) {},
                         ),

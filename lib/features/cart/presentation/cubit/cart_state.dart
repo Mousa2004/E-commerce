@@ -1,15 +1,29 @@
+import 'package:ecommerce/features/cart/domin/entities/get_cart/get_cart_response.dart';
+
 sealed class CartState {}
 
 class CartIntialState extends CartState {}
 
-class CartLoadingState extends CartState {}
+class AddCartLoadingState extends CartState {}
 
-class CartErrorState extends CartState {
+class AddCartErrorState extends CartState {
   String message;
-  CartErrorState({required this.message});
+  AddCartErrorState({required this.message});
 }
 
-class CartSuccessState extends CartState {
+class AddCartSuccessState extends CartState {
   int? numOfCartItems;
-  CartSuccessState({required this.numOfCartItems});
+  AddCartSuccessState({required this.numOfCartItems});
+}
+
+class GetCartLoadingState extends CartState {}
+
+class GetCartErrorState extends CartState {
+  String message;
+  GetCartErrorState({required this.message});
+}
+
+class GetCartSuccessState extends CartState {
+  GetCartResponse getCartResponse;
+  GetCartSuccessState({required this.getCartResponse});
 }

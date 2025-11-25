@@ -26,15 +26,15 @@ import '../../features/auth/domin/use_cases/login_use_case.dart' as _i210;
 import '../../features/auth/domin/use_cases/register_use_case.dart' as _i263;
 import '../../features/auth/presentation/cubit/auth_cubit.dart' as _i117;
 import '../../features/cart/cart_api/cart_web_service.dart' as _i75;
-import '../../features/cart/cart_api/data_sources/remote/add_cart_remote_data_sources_impl.dart'
-    as _i985;
-import '../../features/cart/data/data_sources/remote/add_cart_remote_data_sources.dart'
-    as _i118;
-import '../../features/cart/data/repositories/add_cart_repository_impl.dart'
-    as _i580;
-import '../../features/cart/domin/repositories/add_cart_repository.dart'
-    as _i520;
+import '../../features/cart/cart_api/data_sources/remote/cart_remote_data_sources_impl.dart'
+    as _i860;
+import '../../features/cart/data/data_sources/remote/cart_remote_data_sources.dart'
+    as _i106;
+import '../../features/cart/data/repositories/cart_repository_impl.dart'
+    as _i642;
+import '../../features/cart/domin/repositories/cart_repository.dart' as _i967;
 import '../../features/cart/domin/use_cases/add_cart_use_case.dart' as _i903;
+import '../../features/cart/domin/use_cases/get_cart_use_case.dart' as _i681;
 import '../../features/cart/presentation/cubit/cart_cubit.dart' as _i499;
 import '../../features/home/presentation/cubit/home_cubit.dart' as _i9;
 import '../../features/home_tab/data/data_sources/remote/home_tap_remote_data_sources.dart'
@@ -112,11 +112,6 @@ extension GetItInjectableX on _i174.GetIt {
         productWebServer: gh<_i341.ProductWebServer>(),
       ),
     );
-    gh.factory<_i118.AddCartRemoteDataSources>(
-      () => _i985.AddCartRemoteDataSourcesImpl(
-        cartWebService: gh<_i75.CartWebService>(),
-      ),
-    );
     gh.factory<_i1048.HomeTapRemoteDataSources>(
       () => _i45.HomeTapRemoteDataSourcesImpl(
         homeWebServer: gh<_i350.HomeWebServer>(),
@@ -125,8 +120,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i263.RegisterUseCase>(
       () => _i263.RegisterUseCase(athRepository: gh<_i333.AuthRepository>()),
     );
+    gh.factory<_i106.CartRemoteDataSources>(
+      () => _i860.CartRemoteDataSourcesImpl(
+        cartWebService: gh<_i75.CartWebService>(),
+      ),
+    );
     gh.factory<_i210.LoginUseCase>(
       () => _i210.LoginUseCase(authRepository: gh<_i333.AuthRepository>()),
+    );
+    gh.factory<_i967.CartRepository>(
+      () => _i642.CartRepositoryImpl(
+        cartRemoteDataSources: gh<_i106.CartRemoteDataSources>(),
+      ),
     );
     gh.factory<_i80.ProductRepository>(
       () => _i764.ProductRepositoryImpl(
@@ -144,13 +149,20 @@ extension GetItInjectableX on _i174.GetIt {
         registerUseCase: gh<_i263.RegisterUseCase>(),
       ),
     );
+    gh.factory<_i903.AddCartUseCase>(
+      () => _i903.AddCartUseCase(cartRepository: gh<_i967.CartRepository>()),
+    );
+    gh.factory<_i681.GetCartUseCase>(
+      () => _i681.GetCartUseCase(cartRepository: gh<_i967.CartRepository>()),
+    );
     gh.factory<_i922.ProductUseCase>(
       () =>
           _i922.ProductUseCase(productRepository: gh<_i80.ProductRepository>()),
     );
-    gh.factory<_i520.AddCartRepository>(
-      () => _i580.AddCartRepositoryImpl(
-        addCartRemoteDataSources: gh<_i118.AddCartRemoteDataSources>(),
+    gh.factory<_i499.CartCubit>(
+      () => _i499.CartCubit(
+        addCartUseCase: gh<_i903.AddCartUseCase>(),
+        getCartUseCase: gh<_i681.GetCartUseCase>(),
       ),
     );
     gh.factory<_i661.ProductCubit>(
@@ -171,16 +183,8 @@ extension GetItInjectableX on _i174.GetIt {
         homeTabBrandUseCase: gh<_i994.HomeTabBrandUseCase>(),
       ),
     );
-    gh.factory<_i903.AddCartUseCase>(
-      () => _i903.AddCartUseCase(
-        addCartRepository: gh<_i520.AddCartRepository>(),
-      ),
-    );
     gh.factory<_i1069.HomeTabCubit>(
       () => _i1069.HomeTabCubit(homeTabUseCase: gh<_i1026.HomeTabUseCase>()),
-    );
-    gh.factory<_i499.CartCubit>(
-      () => _i499.CartCubit(addCartUseCase: gh<_i903.AddCartUseCase>()),
     );
     return this;
   }

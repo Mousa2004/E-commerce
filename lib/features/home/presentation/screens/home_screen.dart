@@ -2,16 +2,27 @@ import 'package:ecommerce/core/injctable/di.dart';
 import 'package:ecommerce/core/resources/assets_manager.dart';
 import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/widgets/home_screen_app_bar.dart';
+import 'package:ecommerce/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:ecommerce/features/home/presentation/cubit/home_cubit.dart';
 import 'package:ecommerce/features/home/presentation/cubit/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen();
+class HomeScreen extends StatefulWidget {
+  const HomeScreen();
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final viewModel = getIt<HomeCubit>();
+  @override
+  void initState() {
+    super.initState();
+    CartCubit.get(context).getCart();
+  }
 
   @override
   Widget build(BuildContext context) {

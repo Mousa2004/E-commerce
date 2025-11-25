@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/cart/cart_api/model/add_cart/response/add_cart_dto.dart';
+import 'package:ecommerce/features/cart/cart_api/model/response/add_cart/add_cart_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'add_cart_response_dto.g.dart';

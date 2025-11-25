@@ -1,21 +1,21 @@
-import 'package:ecommerce/features/cart/cart_api/model/add_cart/response/product_cart_dto.dart';
+import 'package:ecommerce/features/cart/cart_api/model/response/get_cart/get_cart_product_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'add_cart_dto.g.dart';
+part 'get_cart_dto.g.dart';
 
 @JsonSerializable()
-class AddCartDto {
+class GetCartDto {
   @JsonKey(name: '_id')
   String? id;
   String? cartOwner;
-  List<ProductCartDto>? products;
+  List<GetCartProductDto>? products;
   DateTime? createdAt;
   DateTime? updatedAt;
   @JsonKey(name: '__v')
   int? v;
   int? totalCartPrice;
 
-  AddCartDto({
+  GetCartDto({
     this.id,
     this.cartOwner,
     this.products,
@@ -25,8 +25,8 @@ class AddCartDto {
     this.totalCartPrice,
   });
 
-  factory AddCartDto.fromJson(Map<String, dynamic> json) =>
-      _$AddCartDtoFromJson(json);
+  factory GetCartDto.fromJson(Map<String, dynamic> json) =>
+      _$GetCartDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AddCartDtoToJson(this);
+  Map<String, dynamic> toJson() => _$GetCartDtoToJson(this);
 }
