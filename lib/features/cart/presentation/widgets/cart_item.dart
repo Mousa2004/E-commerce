@@ -12,7 +12,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CartItem extends StatelessWidget {
   final GetCartProduct cartProduct;
   final void Function()? onTap;
-  const CartItem({required this.cartProduct, this.onTap});
+  final void Function()? deleteCart;
+  const CartItem({
+    required this.cartProduct,
+    this.onTap,
+    required this.deleteCart,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +76,7 @@ class CartItem extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: deleteCart,
                           child: Image.asset(
                             IconsAssets.delete,
                             color: ColorManager.text,

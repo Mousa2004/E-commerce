@@ -17,4 +17,9 @@ class CartRepositoryImpl implements CartRepository {
   Future<GetCartResponse> getCart() {
     return cartRemoteDataSources.getCart();
   }
+
+  @override
+  Future<GetCartResponse> deleteCart(String productId) {
+    return cartRemoteDataSources.deleteCart(productId);
+  }
 }

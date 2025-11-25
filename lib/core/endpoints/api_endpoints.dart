@@ -7,4 +7,6 @@ class ApiEndpoints {
   static const String apiBrands = "api/v1/brands";
   static const String apiAddCart = "api/v1/cart";
   static const String apiGetCart = "api/v1/cart";
+  static const String apiDeleteCart = "api/v1/cart/{productId}";
+  static const String apiUpdateCart = "api/v1/cart/{productId}";
 }

@@ -45,4 +45,20 @@ class CartRemoteDataSourcesImpl implements CartRemoteDataSources {
       throw ServerException(message: message);
     }
   }
+
+  @override
+  Future<GetCartResponse> deleteCart(String productId) async {
+    final String token = (SharedPrefrenceUtls.getData(key: "token") as String);
+    try {
+      final deleteCardResponseDto = await cartWebService.deleteCart(
+        token,
+        productId,
+      );
+      //todo: getCardResponseDto => getCardResponse
+      return deleteCardResponseDto.convertToGetCartResponse();
+    } on DioException catch (e) {
+      final message = (e.error as AppException).message;
+      throw ServerException(message: message);
+    }
+  }
 }

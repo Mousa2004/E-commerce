@@ -19,4 +19,10 @@ abstract class CartWebService {
 
   @GET(ApiEndpoints.apiGetCart)
   Future<GetCartResponseDto> getCart(@Header('token') String token);
+
+  @DELETE(ApiEndpoints.apiDeleteCart)
+  Future<GetCartResponseDto> deleteCart(
+    @Header('token') String token,
+    @Path() String productId,
+  );
 }
