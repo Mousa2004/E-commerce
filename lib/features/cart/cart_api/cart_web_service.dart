@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce/core/endpoints/api_endpoints.dart';
 
 import 'package:ecommerce/features/cart/cart_api/model/request/add_cart_request_dto.dart';
+import 'package:ecommerce/features/cart/cart_api/model/request/update_cart_request_dto.dart';
 import 'package:ecommerce/features/cart/cart_api/model/response/add_cart/add_cart_response_dto.dart';
 import 'package:ecommerce/features/cart/cart_api/model/response/get_cart/get_cart_response_dto.dart';
 import 'package:retrofit/retrofit.dart' hide Headers;
@@ -24,5 +25,12 @@ abstract class CartWebService {
   Future<GetCartResponseDto> deleteCart(
     @Header('token') String token,
     @Path() String productId,
+  );
+
+  @PUT(ApiEndpoints.apiUpdateCart)
+  Future<GetCartResponseDto> updateCart(
+    @Header('token') String token,
+    @Path() String productId,
+    @Body() UpdateCartRequestDto pdateCartRequest,
   );
 }

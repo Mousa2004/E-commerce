@@ -4,6 +4,7 @@ import 'package:ecommerce/features/cart/domin/entities/get_cart/get_cart_product
 import 'package:ecommerce/features/cart/domin/use_cases/add_cart_use_case.dart';
 import 'package:ecommerce/features/cart/domin/use_cases/delete_cart_use_case.dart';
 import 'package:ecommerce/features/cart/domin/use_cases/get_cart_use_case.dart';
+import 'package:ecommerce/features/cart/domin/use_cases/update_count_cart_use_case.dart';
 import 'package:ecommerce/features/cart/presentation/cubit/cart_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -13,16 +14,19 @@ class CartCubit extends Cubit<CartState> {
   AddCartUseCase addCartUseCase;
   GetCartUseCase getCartUseCase;
   DeleteCartUseCase deleteCartUseCase;
-
+  UpdateCountCartUseCase updateCountCartUseCase;
   CartCubit({
     required this.addCartUseCase,
     required this.getCartUseCase,
     required this.deleteCartUseCase,
+    required this.updateCountCartUseCase,
   }) : super(CartIntialState());
 
   static CartCubit get(context) => BlocProvider.of<CartCubit>(context);
+
   int numOfCartItems = 0;
   List<GetCartProduct> cartProduct = [];
+
   Future<void> addCart(String productId) async {
     try {
       emit(AddCartLoadingState());
@@ -63,6 +67,22 @@ class CartCubit extends Cubit<CartState> {
       emit(DeleteCartErrorState(message: message!));
     } on AppException catch (e) {
       emit(DeleteCartErrorState(message: e.message!));
+    }
+  }
+
+  Future<void> updateCountCart(String productId, int count) async {
+    try {
+      final updateCountCartResponse = await updateCountCartUseCase.invoke(
+        productId,
+        count,
+      );
+      numOfCartItems = updateCountCartResponse.numOfCartItems ?? 0;
+      emit(UpdateCountCartSuccessState(getCart: updateCountCartResponse.data!));
+    } on DioException catch (e) {
+      final message = (e.error as AppException).message;
+      emit(UpdateCountCartErrorState(message: message!));
+    } on AppException catch (e) {
+      emit(UpdateCountCartErrorState(message: e.message!));
     }
   }
 }

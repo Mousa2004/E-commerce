@@ -39,3 +39,15 @@ class DeleteCartSuccessState extends CartState {
   GetCart getCart;
   DeleteCartSuccessState({required this.getCart});
 }
+
+class UpdateCountCartLoadingState extends CartState {}
+
+class UpdateCountCartErrorState extends CartState {
+  String message;
+  UpdateCountCartErrorState({required this.message});
+}
+
+class UpdateCountCartSuccessState extends CartState {
+  GetCart getCart;
+  UpdateCountCartSuccessState({required this.getCart});
+}

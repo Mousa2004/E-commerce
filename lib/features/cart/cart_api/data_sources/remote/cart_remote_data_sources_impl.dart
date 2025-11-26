@@ -5,6 +5,7 @@ import 'package:ecommerce/core/mapper/add_cart_response_mapper.dart';
 import 'package:ecommerce/core/mapper/get_cart_response_mapper.dart';
 import 'package:ecommerce/features/cart/cart_api/cart_web_service.dart';
 import 'package:ecommerce/features/cart/cart_api/model/request/add_cart_request_dto.dart';
+import 'package:ecommerce/features/cart/cart_api/model/request/update_cart_request_dto.dart';
 import 'package:ecommerce/features/cart/data/data_sources/remote/cart_remote_data_sources.dart';
 import 'package:ecommerce/features/cart/domin/entities/add_cart/add_cart_response.dart';
 import 'package:ecommerce/features/cart/domin/entities/get_cart/get_cart_response.dart';
@@ -56,6 +57,23 @@ class CartRemoteDataSourcesImpl implements CartRemoteDataSources {
       );
       //todo: getCardResponseDto => getCardResponse
       return deleteCardResponseDto.convertToGetCartResponse();
+    } on DioException catch (e) {
+      final message = (e.error as AppException).message;
+      throw ServerException(message: message);
+    }
+  }
+
+  @override
+  Future<GetCartResponse> updateCountCart(String productId, int count) async {
+    final String token = (SharedPrefrenceUtls.getData(key: "token") as String);
+    try {
+      final updateCountCardResponseDto = await cartWebService.updateCart(
+        token,
+        productId,
+        UpdateCartRequestDto(count: count.toString()),
+      );
+      //todo: getCardResponseDto => getCardResponse
+      return updateCountCardResponseDto.convertToGetCartResponse();
     } on DioException catch (e) {
       final message = (e.error as AppException).message;
       throw ServerException(message: message);

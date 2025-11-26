@@ -1,7 +1,6 @@
 import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
 import 'package:ecommerce/core/resources/values_manager.dart';
-import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/utils/ui_utils.dart';
 import 'package:ecommerce/core/widgets/loading_indicator.dart';
 import 'package:ecommerce/features/cart/presentation/cubit/cart_cubit.dart';
@@ -44,91 +43,80 @@ class _CartScreenState extends State<CartScreen> {
             left: Insets.s14.sp,
             right: Insets.s14.sp,
           ),
-          child: BlocListener<CartCubit, CartState>(
+          child: BlocConsumer<CartCubit, CartState>(
             listener: (context, state) {
               if (state is DeleteCartSuccessState) {
                 UIUtils.showMessage("Deleted successfully");
+              } else if (state is UpdateCountCartSuccessState) {
+                UIUtils.showMessage("Updated successfully");
               }
             },
-            child: BlocBuilder<CartCubit, CartState>(
-              builder: (context, state) {
-                if (state is GetCartErrorState) {
-                  return Center(
-                    child: Text(
-                      state.message,
-                      style: getBoldStyle(color: ColorManager.primary),
-                    ),
-                  );
-                } else if (state is GetCartSuccessState) {
-                  final viewmodel = state.getCart;
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: ListView.separated(
-                          itemBuilder: (_, index) {
-                            return CartItem(
-                              cartProduct: viewmodel.products![index],
-                              onTap: () => Navigator.of(context).pushNamed(
-                                Routes.productDetails,
-                                arguments: viewmodel.products![index].product,
-                              ),
-                              deleteCart: () {
-                                final productId =
-                                    viewmodel.products![index].product!.id;
-                                CartCubit.get(context).deleteCart(productId!);
-                              },
-                            );
+
+            builder: (context, state) {
+              if (state is GetCartErrorState) {
+                return Center(
+                  child: Text(
+                    state.message,
+                    style: getBoldStyle(color: ColorManager.primary),
+                  ),
+                );
+              }
+
+              final viewmodel = (state is GetCartSuccessState)
+                  ? state.getCart
+                  : (state is UpdateCountCartSuccessState)
+                  ? state.getCart
+                  : (state is DeleteCartSuccessState)
+                  ? state.getCart
+                  : null;
+
+              if (viewmodel == null) {
+                return const LoadingIndicator();
+              }
+
+              return Column(
+                children: [
+                  Expanded(
+                    child: ListView.separated(
+                      itemBuilder: (_, index) {
+                        final productId =
+                            viewmodel.products![index].product!.id;
+
+                        return CartItem(
+                          cartProduct: viewmodel.products![index],
+                          onDecrement: (count) {
+                            CartCubit.get(
+                              context,
+                            ).updateCountCart(productId!, count);
                           },
 
-                          itemCount: viewmodel.products!.length,
-                          separatorBuilder: (_, __) =>
-                              SizedBox(height: Sizes.s12.h),
-                        ),
-                      ),
-                      TotalPriceAndCheckoutButton(
-                        totalPrice: viewmodel.totalCartPrice!,
-                        checkoutButtonOnTap: () {},
-                      ),
-                      SizedBox(height: 10.h),
-                    ],
-                  );
-                } else if (state is DeleteCartSuccessState) {
-                  final viewmodel = state.getCart;
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: ListView.separated(
-                          itemBuilder: (_, index) {
-                            return CartItem(
-                              cartProduct: viewmodel.products![index],
-                              onTap: () => Navigator.of(context).pushNamed(
-                                Routes.productDetails,
-                                arguments: viewmodel.products![index].product,
-                              ),
-                              deleteCart: () {
-                                final productId =
-                                    viewmodel.products![index].product!.id;
-                                CartCubit.get(context).deleteCart(productId!);
-                              },
-                            );
+                          onIncrement: (count) {
+                            CartCubit.get(
+                              context,
+                            ).updateCountCart(productId!, count);
                           },
-                          itemCount: viewmodel.products!.length,
-                          separatorBuilder: (_, __) =>
-                              SizedBox(height: Sizes.s12.h),
-                        ),
-                      ),
-                      TotalPriceAndCheckoutButton(
-                        totalPrice: viewmodel.totalCartPrice!,
-                        checkoutButtonOnTap: () {},
-                      ),
-                      SizedBox(height: 10.h),
-                    ],
-                  );
-                } else {
-                  return const LoadingIndicator();
-                }
-              },
-            ),
+
+                          deleteCart: () {
+                            CartCubit.get(context).deleteCart(productId!);
+                          },
+                        );
+                      },
+
+                      itemCount: viewmodel.products!.length,
+                      separatorBuilder: (_, __) =>
+                          SizedBox(height: Sizes.s12.h),
+                    ),
+                  ),
+
+                  TotalPriceAndCheckoutButton(
+                    totalPrice: viewmodel.totalCartPrice!,
+                    checkoutButtonOnTap: () {},
+                  ),
+
+                  SizedBox(height: 10.h),
+                ],
+              );
+            },
           ),
         ),
       ),
