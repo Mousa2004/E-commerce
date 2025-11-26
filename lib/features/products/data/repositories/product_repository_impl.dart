@@ -7,8 +7,14 @@ import 'package:injectable/injectable.dart';
 class ProductRepositoryImpl implements ProductRepository {
   ProductRemoteDataSources productRemoteDataSources;
   ProductRepositoryImpl({required this.productRemoteDataSources});
+
   @override
-  Future<List<Product>?> getAllProducts() {
-    return productRemoteDataSources.getAllProducts();
+  Future<List<Product>?> getBrandProducts({String? brandId}) {
+    return productRemoteDataSources.getBrandProducts(brandId: brandId);
+  }
+
+  @override
+  Future<List<Product>?> getCategoryProducts({String? categoryId}) {
+    return productRemoteDataSources.getCategoryProducts(categoryId: categoryId);
   }
 }

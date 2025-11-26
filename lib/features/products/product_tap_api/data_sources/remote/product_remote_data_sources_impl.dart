@@ -10,10 +10,29 @@ import 'package:injectable/injectable.dart';
 class ProductRemoteDataSourcesImpl implements ProductRemoteDataSources {
   ProductWebServer productWebServer;
   ProductRemoteDataSourcesImpl({required this.productWebServer});
+
   @override
-  Future<List<Product>?> getAllProducts() async {
+  Future<List<Product>?> getBrandProducts({String? brandId}) async {
     try {
-      final productResponseDto = await productWebServer.getAllProducts();
+      final productResponseDto = await productWebServer.getBrandProducts(
+        brandId!,
+      );
+      //todo: productDto => product
+      return productResponseDto.product!
+          .map((productDto) => productDto.convertToProduct())
+          .toList();
+    } on DioException catch (e) {
+      final message = (e.error as AppException).message;
+      throw ServerException(message: message);
+    }
+  }
+
+  @override
+  Future<List<Product>?> getCategoryProducts({String? categoryId}) async {
+    try {
+      final productResponseDto = await productWebServer.getCategoryProducts(
+        categoryId!,
+      );
       //todo: productDto => product
       return productResponseDto.product!
           .map((productDto) => productDto.convertToProduct())

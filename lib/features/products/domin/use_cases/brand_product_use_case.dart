@@ -3,10 +3,10 @@ import 'package:ecommerce/features/products/domin/repositories/product_repositor
 import 'package:injectable/injectable.dart';
 
 @injectable
-class ProductUseCase {
+class BrandProductUseCase {
   ProductRepository productRepository;
-  ProductUseCase({required this.productRepository});
-  Future<List<Product>?> invoke() {
-    return productRepository.getAllProducts();
+  BrandProductUseCase({required this.productRepository});
+  Future<List<Product>?> invoke({String? brandId}) {
+    return productRepository.getBrandProducts(brandId: brandId);
   }
 }

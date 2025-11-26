@@ -4,6 +4,7 @@ import 'package:ecommerce/core/resources/styles_manager.dart';
 import 'package:ecommerce/core/resources/values_manager.dart';
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/widgets/home_screen_app_bar.dart';
+import 'package:ecommerce/features/products/domin/entities/products_screen_args.dart';
 import 'package:ecommerce/features/products/presentation/cubit/product_cubit.dart';
 import 'package:ecommerce/features/products/presentation/cubit/product_state.dart';
 import 'package:ecommerce/features/products/presentation/widgets/product_item.dart';
@@ -24,7 +25,16 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   void initState() {
     super.initState();
-    viewModel.getProducts();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final productId =
+          ModalRoute.of(context)!.settings.arguments as ProductsScreenArgs;
+
+      if (productId.categoryId != null) {
+        viewModel.getCategoryProducts(categoryId: productId.categoryId!);
+      } else if (productId.brandId != null) {
+        viewModel.getBrandProducts(brandId: productId.brandId!);
+      }
+    });
   }
 
   @override
@@ -42,23 +52,37 @@ class _ProductsScreenState extends State<ProductsScreen> {
           final productList = state.productList;
           return Scaffold(
             appBar: const HomeScreenAppBar(automaticallyImplyLeading: true),
-            body: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-                childAspectRatio: 6 / 9,
-              ),
-              itemBuilder: (_, index) => ProductItem(
-                product: productList[index],
-                onTap: () => Navigator.of(context).pushNamed(
-                  Routes.productDetails,
-                  arguments: state.productList[index],
-                ),
-              ),
-              itemCount: productList.length,
-              padding: EdgeInsets.all(Insets.s16.sp),
-            ),
+            body: productList.isEmpty
+                ? Padding(
+                    padding: EdgeInsets.all(16.0.sp),
+                    child: Center(
+                      child: Text(
+                        'No items are currently available.',
+                        style: getBoldStyle(
+                          color: ColorManager.primary,
+                          fontSize: 20.sp,
+                        ),
+                      ),
+                    ),
+                  )
+                : GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 6 / 10,
+                        ),
+                    itemBuilder: (_, index) => ProductItem(
+                      product: productList[index],
+                      onTap: () => Navigator.of(context).pushNamed(
+                        Routes.productDetails,
+                        arguments: state.productList[index],
+                      ),
+                    ),
+                    itemCount: productList.length,
+                    padding: EdgeInsets.all(Insets.s16.sp),
+                  ),
           );
         }
         return const SizedBox();

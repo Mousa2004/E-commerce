@@ -11,6 +11,7 @@ import 'package:ecommerce/features/home_tab/presentation/cubit/home_tab_brand_cu
 import 'package:ecommerce/features/home_tab/presentation/cubit/home_tab_brand_state.dart';
 import 'package:ecommerce/features/home_tab/presentation/cubit/home_tab_cubit.dart';
 import 'package:ecommerce/features/home_tab/presentation/cubit/home_tab_state.dart';
+import 'package:ecommerce/features/products/domin/entities/products_screen_args.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,12 +69,14 @@ class _HomeTabState extends State<HomeTab> {
                             ),
 
                         itemBuilder: (_, index) {
-                          //
                           return CategoryItem(
                             category: categories[index],
-                            onTap: () => Navigator.of(
-                              context,
-                            ).pushNamed(Routes.products),
+                            onTap: () => Navigator.of(context).pushNamed(
+                              Routes.products,
+                              arguments: ProductsScreenArgs(
+                                categoryId: categories[index].id,
+                              ),
+                            ),
                           );
                         },
                         itemCount: categories.length,
@@ -110,9 +113,12 @@ class _HomeTabState extends State<HomeTab> {
                         itemBuilder: (_, index) {
                           return BrandItem(
                             brand: brands[index],
-                            onTap: () => Navigator.of(
-                              context,
-                            ).pushNamed(Routes.products),
+                            onTap: () => Navigator.of(context).pushNamed(
+                              Routes.products,
+                              arguments: ProductsScreenArgs(
+                                brandId: brands[index].id,
+                              ),
+                            ),
                           );
                         },
                         itemCount: brands.length,

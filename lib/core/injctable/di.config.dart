@@ -63,7 +63,10 @@ import '../../features/products/data/repositories/product_repository_impl.dart'
     as _i764;
 import '../../features/products/domin/repositories/product_repository.dart'
     as _i80;
-import '../../features/products/domin/use_cases/product_use_case.dart' as _i922;
+import '../../features/products/domin/use_cases/brand_product_use_case.dart'
+    as _i602;
+import '../../features/products/domin/use_cases/category_product_use_case.dart'
+    as _i182;
 import '../../features/products/presentation/cubit/product_cubit.dart' as _i661;
 import '../../features/products/product_tap_api/data_sources/remote/product_remote_data_sources_impl.dart'
     as _i753;
@@ -166,9 +169,15 @@ extension GetItInjectableX on _i174.GetIt {
         cartRepository: gh<_i967.CartRepository>(),
       ),
     );
-    gh.factory<_i922.ProductUseCase>(
-      () =>
-          _i922.ProductUseCase(productRepository: gh<_i80.ProductRepository>()),
+    gh.factory<_i182.CategoryProductUseCase>(
+      () => _i182.CategoryProductUseCase(
+        productRepository: gh<_i80.ProductRepository>(),
+      ),
+    );
+    gh.factory<_i602.BrandProductUseCase>(
+      () => _i602.BrandProductUseCase(
+        productRepository: gh<_i80.ProductRepository>(),
+      ),
     );
     gh.factory<_i499.CartCubit>(
       () => _i499.CartCubit(
@@ -177,9 +186,6 @@ extension GetItInjectableX on _i174.GetIt {
         deleteCartUseCase: gh<_i972.DeleteCartUseCase>(),
         updateCountCartUseCase: gh<_i61.UpdateCountCartUseCase>(),
       ),
-    );
-    gh.factory<_i661.ProductCubit>(
-      () => _i661.ProductCubit(productUseCase: gh<_i922.ProductUseCase>()),
     );
     gh.factory<_i994.HomeTabBrandUseCase>(
       () => _i994.HomeTabBrandUseCase(
@@ -194,6 +200,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i678.HomeTabBrandCubit>(
       () => _i678.HomeTabBrandCubit(
         homeTabBrandUseCase: gh<_i994.HomeTabBrandUseCase>(),
+      ),
+    );
+    gh.factory<_i661.ProductCubit>(
+      () => _i661.ProductCubit(
+        categoryProductUseCase: gh<_i182.CategoryProductUseCase>(),
+        brandProductUseCase: gh<_i602.BrandProductUseCase>(),
       ),
     );
     gh.factory<_i1069.HomeTabCubit>(

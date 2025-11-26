@@ -10,5 +10,10 @@ abstract class ProductWebServer {
   factory ProductWebServer(Dio dio, {String? baseUrl}) = _ProductWebServer;
 
   @GET(ApiEndpoints.apiProducts)
-  Future<ProductResponseDto> getAllProducts();
+  Future<ProductResponseDto> getCategoryProducts(
+    @Query('category[in]') String categoryId,
+  );
+
+  @GET(ApiEndpoints.apiProducts)
+  Future<ProductResponseDto> getBrandProducts(@Query('brand') String brandId);
 }
