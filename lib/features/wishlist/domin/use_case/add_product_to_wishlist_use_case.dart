@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/wishlist/domin/entities/add_product_to_wishlist_response.dart';
+import 'package:ecommerce/features/wishlist/domin/entities/add_product_to_wishlist/add_product_to_wishlist_response.dart';
 import 'package:ecommerce/features/wishlist/domin/repositories/wishlist_repository.dart';
 import 'package:injectable/injectable.dart';
 

@@ -48,8 +48,26 @@ class ProductDto {
     this.availableColors,
   });
 
-  factory ProductDto.fromJson(Map<String, dynamic> json) =>
-      _$ProductDtoFromJson(json);
+  factory ProductDto.fromJson(Map<String, dynamic> json) {
+    const base = "https://ecommerce.routemisr.com/Route-Academy-products/";
+
+    final dto = _$ProductDtoFromJson(json);
+
+    if (dto.imageCover != null &&
+        dto.imageCover!.isNotEmpty &&
+        !dto.imageCover!.startsWith("http")) {
+      dto.imageCover = "$base${dto.imageCover}";
+    }
+
+    if (dto.images != null) {
+      dto.images = dto.images!.map((img) {
+        if (img.startsWith("http")) return img;
+        return "$base$img";
+      }).toList();
+    }
+
+    return dto;
+  }
 
   Map<String, dynamic> toJson() => _$ProductDtoToJson(this);
 }

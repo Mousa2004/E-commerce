@@ -92,13 +92,16 @@ class ProductItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${product.priceAfterDiscount}\$',
+                            '${product.priceAfterDiscount ?? product.price}\$',
                             style: getRegularStyle(
                               color: ColorManager.text,
                               fontSize: 14.sp,
                             ),
                           ),
-                          Text('${product.price}\$', style: getTextWithLine()),
+                          Text(
+                            '${product.priceAfterDiscount == null ? '' : product.price}',
+                            style: getTextWithLine(),
+                          ),
                         ],
                       ),
                     ),

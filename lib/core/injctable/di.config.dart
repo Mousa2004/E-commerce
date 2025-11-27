@@ -80,6 +80,8 @@ import '../../features/wishlist/domin/repositories/wishlist_repository.dart'
     as _i1022;
 import '../../features/wishlist/domin/use_case/add_product_to_wishlist_use_case.dart'
     as _i520;
+import '../../features/wishlist/domin/use_case/get_product_from_wishlist_use_case.dart'
+    as _i971;
 import '../../features/wishlist/presentation/cubit/wishlist_cubit.dart'
     as _i692;
 import '../../features/wishlist/wishlist_api/data_sources/remote/remote_wishlist_data_sources_impl.dart'
@@ -150,6 +152,11 @@ extension GetItInjectableX on _i174.GetIt {
         wishlistRepository: gh<_i1022.WishlistRepository>(),
       ),
     );
+    gh.factory<_i971.GetProductFromWishlistUseCase>(
+      () => _i971.GetProductFromWishlistUseCase(
+        wishlistRepository: gh<_i1022.WishlistRepository>(),
+      ),
+    );
     gh.factory<_i1048.HomeTapRemoteDataSources>(
       () => _i45.HomeTapRemoteDataSourcesImpl(
         homeWebServer: gh<_i350.HomeWebServer>(),
@@ -158,11 +165,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i263.RegisterUseCase>(
       () => _i263.RegisterUseCase(athRepository: gh<_i333.AuthRepository>()),
     );
-    gh.factory<_i692.WishlistCubit>(
-      () => _i692.WishlistCubit(
-        addProductToWishlistUseCase: gh<_i520.AddProductToWishlistUseCase>(),
-      ),
-    );
     gh.factory<_i106.CartRemoteDataSources>(
       () => _i860.CartRemoteDataSourcesImpl(
         cartWebService: gh<_i75.CartWebService>(),
@@ -170,6 +172,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i210.LoginUseCase>(
       () => _i210.LoginUseCase(authRepository: gh<_i333.AuthRepository>()),
+    );
+    gh.factory<_i692.WishlistCubit>(
+      () => _i692.WishlistCubit(
+        addProductToWishlistUseCase: gh<_i520.AddProductToWishlistUseCase>(),
+        getProductFromWishlistUseCase:
+            gh<_i971.GetProductFromWishlistUseCase>(),
+      ),
     );
     gh.factory<_i967.CartRepository>(
       () => _i642.CartRepositoryImpl(

@@ -3,6 +3,7 @@ import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/values_manager.dart';
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/widgets/heart_button.dart';
+import 'package:ecommerce/features/products/domin/entities/product.dart';
 import 'package:ecommerce/features/wishlist/presentation/widgets/add_to_cart_button.dart';
 import 'package:ecommerce/features/wishlist/presentation/widgets/wishlist_item_details.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class WishlistItem extends StatelessWidget {
   const WishlistItem({required this.product});
 
-  final Map<String, dynamic> product;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class WishlistItem extends StatelessWidget {
                   width: Sizes.s120.w,
                   height: Sizes.s135.h,
                   fit: BoxFit.cover,
-                  imageUrl: product['imageUrl'],
+                  imageUrl: product.imageCover ?? '',
                   placeholder: (_, __) => const Center(
                     child: CircularProgressIndicator(
                       color: ColorManager.primary,
