@@ -72,6 +72,20 @@ import '../../features/products/product_tap_api/data_sources/remote/product_remo
     as _i753;
 import '../../features/products/product_tap_api/product_web_server.dart'
     as _i341;
+import '../../features/wishlist/data/data_sources/remote/remote_wishlist_data_sources.dart'
+    as _i275;
+import '../../features/wishlist/data/repositories/wishlist_repository_impl.dart'
+    as _i919;
+import '../../features/wishlist/domin/repositories/wishlist_repository.dart'
+    as _i1022;
+import '../../features/wishlist/domin/use_case/add_product_to_wishlist_use_case.dart'
+    as _i520;
+import '../../features/wishlist/presentation/cubit/wishlist_cubit.dart'
+    as _i692;
+import '../../features/wishlist/wishlist_api/data_sources/remote/remote_wishlist_data_sources_impl.dart'
+    as _i1070;
+import '../../features/wishlist/wishlist_api/wishlist_web_service.dart'
+    as _i535;
 import '../dio/dio_medule.dart' as _i322;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -105,6 +119,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i75.CartWebService>(
       () => dioMedule.provideCartWebService(gh<_i361.Dio>()),
     );
+    gh.singleton<_i535.WishlistWebService>(
+      () => dioMedule.provideWishlistWebService(gh<_i361.Dio>()),
+    );
     gh.factory<_i8.AuthRemoteDataSources>(
       () => _i716.AuthRemoteDataSourcesImpl(webService: gh<_i608.WebService>()),
     );
@@ -118,6 +135,21 @@ extension GetItInjectableX on _i174.GetIt {
         productWebServer: gh<_i341.ProductWebServer>(),
       ),
     );
+    gh.factory<_i275.RemoteWishlistDataSources>(
+      () => _i1070.RemoteWishlistDataSourcesImpl(
+        wishlistWebService: gh<_i535.WishlistWebService>(),
+      ),
+    );
+    gh.factory<_i1022.WishlistRepository>(
+      () => _i919.WishlistRepositoryImpl(
+        remoteWishlistDataSources: gh<_i275.RemoteWishlistDataSources>(),
+      ),
+    );
+    gh.factory<_i520.AddProductToWishlistUseCase>(
+      () => _i520.AddProductToWishlistUseCase(
+        wishlistRepository: gh<_i1022.WishlistRepository>(),
+      ),
+    );
     gh.factory<_i1048.HomeTapRemoteDataSources>(
       () => _i45.HomeTapRemoteDataSourcesImpl(
         homeWebServer: gh<_i350.HomeWebServer>(),
@@ -125,6 +157,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i263.RegisterUseCase>(
       () => _i263.RegisterUseCase(athRepository: gh<_i333.AuthRepository>()),
+    );
+    gh.factory<_i692.WishlistCubit>(
+      () => _i692.WishlistCubit(
+        addProductToWishlistUseCase: gh<_i520.AddProductToWishlistUseCase>(),
+      ),
     );
     gh.factory<_i106.CartRemoteDataSources>(
       () => _i860.CartRemoteDataSourcesImpl(
@@ -169,13 +206,13 @@ extension GetItInjectableX on _i174.GetIt {
         cartRepository: gh<_i967.CartRepository>(),
       ),
     );
-    gh.factory<_i182.CategoryProductUseCase>(
-      () => _i182.CategoryProductUseCase(
+    gh.factory<_i602.BrandProductUseCase>(
+      () => _i602.BrandProductUseCase(
         productRepository: gh<_i80.ProductRepository>(),
       ),
     );
-    gh.factory<_i602.BrandProductUseCase>(
-      () => _i602.BrandProductUseCase(
+    gh.factory<_i182.CategoryProductUseCase>(
+      () => _i182.CategoryProductUseCase(
         productRepository: gh<_i80.ProductRepository>(),
       ),
     );
