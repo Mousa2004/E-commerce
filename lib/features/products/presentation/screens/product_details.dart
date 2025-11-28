@@ -62,7 +62,10 @@ class _ProductDetailsState extends State<ProductDetails> {
             children: [
               ProductSlider(
                 items: product.images!
-                    .map((imageURL) => ProductImage(imageUrl: imageURL))
+                    .map(
+                      (imageURL) =>
+                          ProductImage(imageUrl: imageURL, product: product),
+                    )
                     .toList(),
                 initialIndex: 0,
               ),

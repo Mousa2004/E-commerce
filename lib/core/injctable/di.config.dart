@@ -80,6 +80,8 @@ import '../../features/wishlist/domin/repositories/wishlist_repository.dart'
     as _i1022;
 import '../../features/wishlist/domin/use_case/add_product_to_wishlist_use_case.dart'
     as _i520;
+import '../../features/wishlist/domin/use_case/delete_product_from_wishlst_use_case.dart'
+    as _i49;
 import '../../features/wishlist/domin/use_case/get_product_from_wishlist_use_case.dart'
     as _i971;
 import '../../features/wishlist/presentation/cubit/wishlist_cubit.dart'
@@ -157,6 +159,11 @@ extension GetItInjectableX on _i174.GetIt {
         wishlistRepository: gh<_i1022.WishlistRepository>(),
       ),
     );
+    gh.factory<_i49.DeleteProductFromWishlstUseCase>(
+      () => _i49.DeleteProductFromWishlstUseCase(
+        wishlistRepository: gh<_i1022.WishlistRepository>(),
+      ),
+    );
     gh.factory<_i1048.HomeTapRemoteDataSources>(
       () => _i45.HomeTapRemoteDataSourcesImpl(
         homeWebServer: gh<_i350.HomeWebServer>(),
@@ -178,6 +185,8 @@ extension GetItInjectableX on _i174.GetIt {
         addProductToWishlistUseCase: gh<_i520.AddProductToWishlistUseCase>(),
         getProductFromWishlistUseCase:
             gh<_i971.GetProductFromWishlistUseCase>(),
+        deleteProductFromWishlstUseCase:
+            gh<_i49.DeleteProductFromWishlstUseCase>(),
       ),
     );
     gh.factory<_i967.CartRepository>(

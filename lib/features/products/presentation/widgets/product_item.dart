@@ -5,7 +5,6 @@ import 'package:ecommerce/core/utils/ui_utils.dart';
 import 'package:ecommerce/core/widgets/heart_button.dart';
 import 'package:ecommerce/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:ecommerce/features/products/domin/entities/product.dart';
-import 'package:ecommerce/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,6 +17,17 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.sizeOf(context);
+    final newPrice =
+        (product.priceAfterDiscount != null && product.priceAfterDiscount! > 0)
+        ? product.priceAfterDiscount
+        : product.price;
+
+    final oldPrice =
+        (product.priceAfterDiscount != null &&
+            product.priceAfterDiscount! > 0 &&
+            product.priceAfterDiscount != product.price)
+        ? product.price
+        : null;
 
     return InkWell(
       onTap: onTap,
@@ -52,13 +62,7 @@ class ProductItem extends StatelessWidget {
                   PositionedDirectional(
                     top: screenSize.height * 0.01,
                     end: screenSize.width * 0.02,
-                    child: HeartButton(
-                      onTap: () {
-                        WishlistCubit.get(
-                          context,
-                        ).addProductToWishlist(productId: product.id);
-                      },
-                    ),
+                    child: HeartButton(product: product),
                   ),
                 ],
               ),
@@ -92,16 +96,14 @@ class ProductItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${product.priceAfterDiscount ?? product.price}\$',
+                            '$newPrice\$',
                             style: getRegularStyle(
                               color: ColorManager.text,
                               fontSize: 14.sp,
                             ),
                           ),
-                          Text(
-                            '${product.priceAfterDiscount == null ? '' : product.price}',
-                            style: getTextWithLine(),
-                          ),
+                          if (oldPrice != null)
+                            Text('$oldPrice\$', style: getTextWithLine()),
                         ],
                       ),
                     ),

@@ -64,7 +64,7 @@ class WishlistItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                HeartButton(onTap: () {}),
+                HeartButton(product: product),
                 SizedBox(height: Sizes.s14.h),
                 AddToCartButton(onPressed: () {}, text: 'Add to Cart'),
               ],

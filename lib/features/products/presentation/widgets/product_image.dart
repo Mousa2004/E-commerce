@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/core/widgets/heart_button.dart';
+import 'package:ecommerce/features/products/domin/entities/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductImage extends StatelessWidget {
   final String imageUrl;
-  final void Function()? onTap;
+  final Product product;
 
-  const ProductImage({required this.imageUrl, this.onTap});
+  const ProductImage({required this.imageUrl, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class ProductImage extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.r),
         ),
         alignment: AlignmentDirectional.topEnd,
-        child: HeartButton(onTap: onTap),
+        child: HeartButton(product: product),
       ),
     );
   }
