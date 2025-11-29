@@ -11,4 +11,6 @@ class ApiEndpoints {
   static const String apiUpdateCart = "api/v1/cart/{productId}";
   static const String apiaddToWishlist = "api/v1/wishlist";
   static const String apideleteFromWishlist = "api/v1/wishlist/{productId}";
+  static const String apiSubcategories =
+      "api/v1/categories/{categoryId}/subcategories";
 }

@@ -1,7 +1,6 @@
+import 'package:ecommerce/core/injctable/di.config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-
-import 'package:ecommerce/core/injctable/di.config.dart';
 
 final getIt = GetIt.instance;
 

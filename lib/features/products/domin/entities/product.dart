@@ -1,6 +1,6 @@
 import 'package:ecommerce/features/home_tab/domin/entities/brand.dart';
 import 'package:ecommerce/features/home_tab/domin/entities/category.dart';
-import 'package:ecommerce/features/products/domin/entities/subcategory.dart';
+import 'package:ecommerce/features/subCategories/domin/entities/subcategory.dart';
 
 class Product {
   int? sold;

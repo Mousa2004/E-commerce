@@ -11,7 +11,13 @@ SubcategoryDto _$SubcategoryDtoFromJson(Map<String, dynamic> json) =>
       id: json['_id'] as String?,
       name: json['name'] as String?,
       slug: json['slug'] as String?,
-      category: SubcategoryDto._categoryFromJson(json['category']),
+      category: json['category'] as String?,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
     );
 
 Map<String, dynamic> _$SubcategoryDtoToJson(SubcategoryDto instance) =>
@@ -19,5 +25,7 @@ Map<String, dynamic> _$SubcategoryDtoToJson(SubcategoryDto instance) =>
       '_id': instance.id,
       'name': instance.name,
       'slug': instance.slug,
-      'category': SubcategoryDto._categoryToJson(instance.category),
+      'category': instance.category,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
     };

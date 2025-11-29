@@ -5,6 +5,7 @@ import 'package:ecommerce/features/auth/auth_api/web_service.dart';
 import 'package:ecommerce/features/cart/cart_api/cart_web_service.dart';
 import 'package:ecommerce/features/home_tab/home_tap_api/home_web_server.dart';
 import 'package:ecommerce/features/products/product_tap_api/product_web_server.dart';
+import 'package:ecommerce/features/subCategories/subCtegories_api/subcategory_web_service.dart';
 import 'package:ecommerce/features/wishlist/wishlist_api/wishlist_web_service.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -64,4 +65,9 @@ abstract class DioMedule {
   @injectable
   WishlistWebService provideWishlistWebService(Dio dio) =>
       WishlistWebService(dio);
+
+  @singleton
+  @injectable
+  SubcategoryWebService provideSubcategoryWebService(Dio dio) =>
+      SubcategoryWebService(dio);
 }

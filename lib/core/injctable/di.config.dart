@@ -72,6 +72,20 @@ import '../../features/products/product_tap_api/data_sources/remote/product_remo
     as _i753;
 import '../../features/products/product_tap_api/product_web_server.dart'
     as _i341;
+import '../../features/subCategories/data/data_sources/remote/subcategories_remote_date_sources.dart'
+    as _i327;
+import '../../features/subCategories/data/repositories/subcategories_repository_impl.dart'
+    as _i79;
+import '../../features/subCategories/domin/repositories/subcategories_repository.dart'
+    as _i1003;
+import '../../features/subCategories/domin/use_case/subcategories_use_case.dart'
+    as _i999;
+import '../../features/subCategories/presentation/cubit/subcategories_cubit.dart'
+    as _i996;
+import '../../features/subCategories/subCtegories_api/data_sources/remote/subcategories_remote_data_sources_impl.dart'
+    as _i915;
+import '../../features/subCategories/subCtegories_api/subcategory_web_service.dart'
+    as _i399;
 import '../../features/wishlist/data/data_sources/remote/remote_wishlist_data_sources.dart'
     as _i275;
 import '../../features/wishlist/data/repositories/wishlist_repository_impl.dart'
@@ -126,6 +140,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i535.WishlistWebService>(
       () => dioMedule.provideWishlistWebService(gh<_i361.Dio>()),
     );
+    gh.singleton<_i399.SubcategoryWebService>(
+      () => dioMedule.provideSubcategoryWebService(gh<_i361.Dio>()),
+    );
+    gh.factory<_i327.SubcategoriesRemoteDateSources>(
+      () => _i915.SubcategoriesRemoteDataSourcesImpl(
+        subcategoryWebService: gh<_i399.SubcategoryWebService>(),
+      ),
+    );
     gh.factory<_i8.AuthRemoteDataSources>(
       () => _i716.AuthRemoteDataSourcesImpl(webService: gh<_i608.WebService>()),
     );
@@ -154,13 +176,13 @@ extension GetItInjectableX on _i174.GetIt {
         wishlistRepository: gh<_i1022.WishlistRepository>(),
       ),
     );
-    gh.factory<_i971.GetProductFromWishlistUseCase>(
-      () => _i971.GetProductFromWishlistUseCase(
+    gh.factory<_i49.DeleteProductFromWishlstUseCase>(
+      () => _i49.DeleteProductFromWishlstUseCase(
         wishlistRepository: gh<_i1022.WishlistRepository>(),
       ),
     );
-    gh.factory<_i49.DeleteProductFromWishlstUseCase>(
-      () => _i49.DeleteProductFromWishlstUseCase(
+    gh.factory<_i971.GetProductFromWishlistUseCase>(
+      () => _i971.GetProductFromWishlistUseCase(
         wishlistRepository: gh<_i1022.WishlistRepository>(),
       ),
     );
@@ -172,6 +194,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i263.RegisterUseCase>(
       () => _i263.RegisterUseCase(athRepository: gh<_i333.AuthRepository>()),
     );
+    gh.factory<_i1003.SubcategoriesRepository>(
+      () => _i79.SubcategoriesRepositoryImpl(
+        subcategoriesRemoteDateSources:
+            gh<_i327.SubcategoriesRemoteDateSources>(),
+      ),
+    );
     gh.factory<_i106.CartRemoteDataSources>(
       () => _i860.CartRemoteDataSourcesImpl(
         cartWebService: gh<_i75.CartWebService>(),
@@ -180,6 +208,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i210.LoginUseCase>(
       () => _i210.LoginUseCase(authRepository: gh<_i333.AuthRepository>()),
     );
+    gh.factory<_i999.SubcategoriesUseCase>(
+      () => _i999.SubcategoriesUseCase(
+        subcategoriesRepository: gh<_i1003.SubcategoriesRepository>(),
+      ),
+    );
     gh.factory<_i692.WishlistCubit>(
       () => _i692.WishlistCubit(
         addProductToWishlistUseCase: gh<_i520.AddProductToWishlistUseCase>(),
@@ -187,6 +220,11 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i971.GetProductFromWishlistUseCase>(),
         deleteProductFromWishlstUseCase:
             gh<_i49.DeleteProductFromWishlstUseCase>(),
+      ),
+    );
+    gh.factory<_i996.SubcategoriesCubit>(
+      () => _i996.SubcategoriesCubit(
+        subcategoriesUseCase: gh<_i999.SubcategoriesUseCase>(),
       ),
     );
     gh.factory<_i967.CartRepository>(

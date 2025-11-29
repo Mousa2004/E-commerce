@@ -4,9 +4,7 @@ import 'package:ecommerce/core/resources/styles_manager.dart';
 import 'package:ecommerce/core/resources/values_manager.dart';
 import 'package:ecommerce/features/products/domin/entities/product.dart';
 import 'package:ecommerce/features/wishlist/presentation/widgets/custom_auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WishlistItemDetails extends StatelessWidget {
@@ -16,6 +14,9 @@ class WishlistItemDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool hasDiscount =
+        product.priceAfterDiscount != null && product.priceAfterDiscount! > 0;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -27,39 +28,33 @@ class WishlistItemDetails extends StatelessWidget {
             fontSize: FontSize.s18,
           ),
         ),
+        SizedBox(height: Sizes.s8.h),
         Row(
           children: [
             CustomAutoSizeText(
-              data: product.priceAfterDiscount == null
-                  ? 'EGP ${product.price}  '
-                  : 'EGP ${product.priceAfterDiscount}  ',
+              data: hasDiscount
+                  ? 'EGP ${product.priceAfterDiscount}'
+                  : 'EGP ${product.price}',
               textStyle: getSemiBoldStyle(
                 color: ColorManager.primaryDark,
                 fontSize: FontSize.s18,
               ).copyWith(letterSpacing: 0.17),
             ),
-            product.priceAfterDiscount == null
-                ? const SizedBox.shrink()
-                : Flexible(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(height: Sizes.s10.h),
-                        CustomAutoSizeText(
-                          data: 'EGP ${product.price}',
-                          textStyle:
-                              getMediumStyle(
-                                color: ColorManager.appBarTitle.withOpacity(.6),
-                              ).copyWith(
-                                letterSpacing: 0.17,
-                                decoration: TextDecoration.lineThrough,
-                                color: ColorManager.appBarTitle.withOpacity(.6),
-                                fontSize: FontSize.s10,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
+            SizedBox(width: Sizes.s8.w),
+            if (hasDiscount)
+              Flexible(
+                child: CustomAutoSizeText(
+                  data: 'EGP ${product.price}',
+                  textStyle:
+                      getMediumStyle(
+                        color: ColorManager.appBarTitle.withOpacity(0.6),
+                        fontSize: FontSize.s10,
+                      ).copyWith(
+                        letterSpacing: 0.17,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                ),
+              ),
           ],
         ),
       ],
