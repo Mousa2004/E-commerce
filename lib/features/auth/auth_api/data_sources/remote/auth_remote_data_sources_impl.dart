@@ -33,6 +33,10 @@ class AuthRemoteDataSourcesImpl implements AuthRemoteDataSources {
     final authResponse = await webService.register(
       registerReques.convertToRegisterRequest(),
     );
+
+    //todo: Save token
+    SharedPrefrenceUtls.saveData(key: "token", value: authResponse.token);
+
     return authResponse.convetToAuthResponseDto();
   }
 }

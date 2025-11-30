@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/cache/shared_prefrence_utls.dart';
 import 'package:ecommerce/core/injctable/di.dart';
 import 'package:ecommerce/core/resources/assets_manager.dart';
 import 'package:ecommerce/core/resources/color_manager.dart';
@@ -24,9 +25,11 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final _nameController = TextEditingController(text: "Mohamed");
-  final _emailController = TextEditingController(text: "mohamed1234@gmail.com");
-  final _phoneController = TextEditingController(text: "01271932789");
+  final _nameController = TextEditingController(text: "Adbelrahman ayman");
+  final _emailController = TextEditingController(
+    text: "dbelrahmanayman2589@gmail.com",
+  );
+  final _phoneController = TextEditingController(text: "01289745698");
   final _passwordController = TextEditingController(text: "6292004@mam");
   final _rePasswordController = TextEditingController(text: "6292004@mam");
   var viewModel = getIt<AuthCubit>();
@@ -110,7 +113,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             color: ColorManager.primary,
                             fontSize: FontSize.s20,
                           ),
-                          onTap: () {
+                          onTap: () async {
+                            await SharedPrefrenceUtls.saveData(
+                              key: 'name',
+                              value: _nameController.text,
+                            );
+                            await SharedPrefrenceUtls.saveData(
+                              key: 'email',
+                              value: _emailController.text,
+                            );
+                            await SharedPrefrenceUtls.saveData(
+                              key: 'password',
+                              value: _passwordController.text,
+                            );
+                            await SharedPrefrenceUtls.saveData(
+                              key: 'phone',
+                              value: _phoneController.text,
+                            );
                             viewModel.register(
                               name: _nameController.text,
                               email: _emailController.text,

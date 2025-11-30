@@ -23,7 +23,10 @@ class ProfileTabState extends State<ProfileTab> {
   bool _isEmailReadOnly = true;
   bool _isPasswordReadOnly = true;
   bool _isPhoneReadOnly = true;
-  bool _isAddressReadOnly = true;
+  final name = SharedPrefrenceUtls.getData(key: 'name');
+  final email = SharedPrefrenceUtls.getData(key: 'email');
+  final password = SharedPrefrenceUtls.getData(key: 'password');
+  final phone = SharedPrefrenceUtls.getData(key: 'phone');
 
   @override
   Widget build(BuildContext context) {
@@ -56,21 +59,21 @@ class ProfileTabState extends State<ProfileTab> {
                     icon: const Icon(
                       Icons.logout,
                       size: 30,
-                      color: ColorManager.error,
+                      color: ColorManager.appBarTitle,
                     ),
                   ),
                 ],
               ),
               SizedBox(height: Sizes.s20.h),
               Text(
-                'Welcome, Mohamed',
+                'Welcome, $name',
                 style: getSemiBoldStyle(
                   color: ColorManager.primary,
                   fontSize: FontSize.s18,
                 ),
               ),
               Text(
-                'mohamed.N@gmail.com',
+                '$email',
                 style: getRegularStyle(
                   color: ColorManager.primary.withOpacity(.5),
                   fontSize: FontSize.s14,
@@ -83,9 +86,7 @@ class ProfileTabState extends State<ProfileTab> {
                 backgroundColor: ColorManager.white,
                 hint: 'Enter your full name',
                 label: 'Full Name',
-                controller: TextEditingController(
-                  text: 'Mohamed Mohamed Nabil',
-                ),
+                controller: TextEditingController(text: '$name'),
                 labelTextStyle: getMediumStyle(
                   color: ColorManager.primary,
                   fontSize: FontSize.s18,
@@ -107,7 +108,7 @@ class ProfileTabState extends State<ProfileTab> {
                 backgroundColor: ColorManager.white,
                 hint: 'Enter your email address',
                 label: 'E-mail address',
-                controller: TextEditingController(text: 'mohamed.N@gmail.com'),
+                controller: TextEditingController(text: '$email'),
                 labelTextStyle: getMediumStyle(
                   color: ColorManager.primary,
                   fontSize: FontSize.s18,
@@ -125,7 +126,7 @@ class ProfileTabState extends State<ProfileTab> {
               SizedBox(height: Sizes.s18.h),
               CustomTextField(
                 onTap: () => setState(() => _isPasswordReadOnly = false),
-                controller: TextEditingController(text: '123456789123456'),
+                controller: TextEditingController(text: '$password'),
                 borderBackgroundColor: ColorManager.primary.withOpacity(.5),
                 readOnly: _isPasswordReadOnly,
                 backgroundColor: ColorManager.white,
@@ -145,7 +146,7 @@ class ProfileTabState extends State<ProfileTab> {
               ),
               SizedBox(height: Sizes.s18.h),
               CustomTextField(
-                controller: TextEditingController(text: '01122118855'),
+                controller: TextEditingController(text: '$phone'),
                 borderBackgroundColor: ColorManager.primary.withOpacity(.5),
                 readOnly: _isPhoneReadOnly,
                 backgroundColor: ColorManager.white,
@@ -166,29 +167,6 @@ class ProfileTabState extends State<ProfileTab> {
                 ).copyWith(fontSize: 18.sp),
               ),
               SizedBox(height: Sizes.s18.h),
-              CustomTextField(
-                controller: TextEditingController(
-                  text: '6th October, street 11.....',
-                ),
-                borderBackgroundColor: ColorManager.primary.withOpacity(.5),
-                readOnly: _isAddressReadOnly,
-                backgroundColor: ColorManager.white,
-                hint: '6th October, street 11.....',
-                label: 'Your Address',
-                labelTextStyle: getMediumStyle(
-                  color: ColorManager.primary,
-                  fontSize: FontSize.s18,
-                ),
-                suffixIcon: IconButton(
-                  icon: SvgPicture.asset(SvgAssets.edit),
-                  onPressed: () => setState(() => _isAddressReadOnly = false),
-                ),
-                textInputType: TextInputType.streetAddress,
-                validation: Validator.validateFullName,
-                hintTextStyle: getRegularStyle(
-                  color: ColorManager.primary,
-                ).copyWith(fontSize: 18.sp),
-              ),
               SizedBox(height: Sizes.s50.h),
             ],
           ),
