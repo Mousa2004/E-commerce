@@ -57,6 +57,22 @@ import '../../features/home_tab/presentation/cubit/home_tab_brand_cubit.dart'
     as _i678;
 import '../../features/home_tab/presentation/cubit/home_tab_cubit.dart'
     as _i1069;
+import '../../features/paymant/data/data_sources/remote/payment_remote_data_sources.dart'
+    as _i500;
+import '../../features/paymant/data/repositories/payment_repository_impl.dart'
+    as _i1052;
+import '../../features/paymant/domin/repositories/payment_repository.dart'
+    as _i252;
+import '../../features/paymant/domin/use_case/auth_token_payment_use_case.dart'
+    as _i892;
+import '../../features/paymant/domin/use_case/order_id_payment_use_case.dart'
+    as _i238;
+import '../../features/paymant/domin/use_case/request_token_payment_use_case.dart'
+    as _i604;
+import '../../features/paymant/paymant_api/data_sources/remote/payment_remote_data_sources_impl.dart'
+    as _i805;
+import '../../features/paymant/paymant_api/payment_web_service.dart' as _i641;
+import '../../features/paymant/presentation/cubit/payment_cubit.dart' as _i301;
 import '../../features/products/data/data_sources/remote/product_remote_data_sources.dart'
     as _i827;
 import '../../features/products/data/repositories/product_repository_impl.dart'
@@ -143,6 +159,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i399.SubcategoryWebService>(
       () => dioMedule.provideSubcategoryWebService(gh<_i361.Dio>()),
     );
+    gh.singleton<_i641.PaymentWebService>(
+      () => dioMedule.providePaymentWebService(gh<_i361.Dio>()),
+    );
     gh.factory<_i327.SubcategoriesRemoteDateSources>(
       () => _i915.SubcategoriesRemoteDataSourcesImpl(
         subcategoryWebService: gh<_i399.SubcategoryWebService>(),
@@ -208,6 +227,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i210.LoginUseCase>(
       () => _i210.LoginUseCase(authRepository: gh<_i333.AuthRepository>()),
     );
+    gh.factory<_i500.PaymentRemoteDataSources>(
+      () => _i805.PaymentRemoteDataSourcesImpl(
+        paymentWebService: gh<_i641.PaymentWebService>(),
+      ),
+    );
     gh.factory<_i999.SubcategoriesUseCase>(
       () => _i999.SubcategoriesUseCase(
         subcategoriesRepository: gh<_i1003.SubcategoriesRepository>(),
@@ -248,6 +272,11 @@ extension GetItInjectableX on _i174.GetIt {
         registerUseCase: gh<_i263.RegisterUseCase>(),
       ),
     );
+    gh.factory<_i252.PaymentRepository>(
+      () => _i1052.PaymentRepositoryImpl(
+        paymentRemoteDataSources: gh<_i500.PaymentRemoteDataSources>(),
+      ),
+    );
     gh.factory<_i903.AddCartUseCase>(
       () => _i903.AddCartUseCase(cartRepository: gh<_i967.CartRepository>()),
     );
@@ -280,6 +309,21 @@ extension GetItInjectableX on _i174.GetIt {
         updateCountCartUseCase: gh<_i61.UpdateCountCartUseCase>(),
       ),
     );
+    gh.factory<_i892.AuthTokenPaymentUseCase>(
+      () => _i892.AuthTokenPaymentUseCase(
+        paymentRepository: gh<_i252.PaymentRepository>(),
+      ),
+    );
+    gh.factory<_i238.OrderIdPaymentUseCase>(
+      () => _i238.OrderIdPaymentUseCase(
+        paymentRepository: gh<_i252.PaymentRepository>(),
+      ),
+    );
+    gh.factory<_i604.RequestTokenPaymentUseCase>(
+      () => _i604.RequestTokenPaymentUseCase(
+        paymentRepository: gh<_i252.PaymentRepository>(),
+      ),
+    );
     gh.factory<_i994.HomeTabBrandUseCase>(
       () => _i994.HomeTabBrandUseCase(
         homeTabRepository: gh<_i940.HomeTabRepository>(),
@@ -303,6 +347,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1069.HomeTabCubit>(
       () => _i1069.HomeTabCubit(homeTabUseCase: gh<_i1026.HomeTabUseCase>()),
+    );
+    gh.factory<_i301.PaymentCubit>(
+      () => _i301.PaymentCubit(
+        authTokenPaymentUseCase: gh<_i892.AuthTokenPaymentUseCase>(),
+        orderIdPaymentUseCase: gh<_i238.OrderIdPaymentUseCase>(),
+        requestTokenPaymentUseCase: gh<_i604.RequestTokenPaymentUseCase>(),
+      ),
     );
     return this;
   }

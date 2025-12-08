@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:ecommerce/core/endpoints/api_endpoints.dart';
 import 'package:ecommerce/core/dio/dio_interceptors.dart';
+import 'package:ecommerce/core/endpoints/api_endpoints.dart';
 import 'package:ecommerce/features/auth/auth_api/web_service.dart';
 import 'package:ecommerce/features/cart/cart_api/cart_web_service.dart';
 import 'package:ecommerce/features/home_tab/home_tap_api/home_web_server.dart';
+import 'package:ecommerce/features/paymant/paymant_api/payment_web_service.dart';
 import 'package:ecommerce/features/products/product_tap_api/product_web_server.dart';
 import 'package:ecommerce/features/subCategories/subCtegories_api/subcategory_web_service.dart';
 import 'package:ecommerce/features/wishlist/wishlist_api/wishlist_web_service.dart';
@@ -70,4 +71,8 @@ abstract class DioMedule {
   @injectable
   SubcategoryWebService provideSubcategoryWebService(Dio dio) =>
       SubcategoryWebService(dio);
+
+  @singleton
+  @injectable
+  PaymentWebService providePaymentWebService(Dio dio) => PaymentWebService(dio);
 }

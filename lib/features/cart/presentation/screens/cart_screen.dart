@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
 import 'package:ecommerce/core/resources/values_manager.dart';
+import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/utils/ui_utils.dart';
 import 'package:ecommerce/core/widgets/loading_indicator.dart';
 import 'package:ecommerce/features/cart/presentation/cubit/cart_cubit.dart';
@@ -110,7 +111,23 @@ class _CartScreenState extends State<CartScreen> {
 
                   TotalPriceAndCheckoutButton(
                     totalPrice: viewmodel.totalCartPrice!,
-                    checkoutButtonOnTap: () {},
+                    checkoutButtonOnTap:
+                        (viewmodel.totalCartPrice == 0 ||
+                            viewmodel.totalCartPrice == null)
+                        ? () {
+                            UIUtils.showMessage(
+                              "Please add an order to proceed with payment.",
+                            );
+                          }
+                        : () {
+                            Navigator.of(context).pushNamed(
+                              Routes.paymentScreen,
+                              arguments: {
+                                "totalPrice": viewmodel.totalCartPrice,
+                                "items": viewmodel.products!,
+                              },
+                            );
+                          },
                   ),
 
                   SizedBox(height: 10.h),

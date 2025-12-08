@@ -14,6 +14,7 @@ class ImageAssets {
   static const String favoriteIcon = '$_imagePath/favorite.png';
   static const String notFavoriteIcon = '$_imagePath/not_favorite.png';
   static const String searchIcon = '$_imagePath/search.png';
+  static const String visaImage = '$_imagePath/visa.png';
 }
 
 class SvgAssets {
