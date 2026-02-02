@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
+import 'package:ecommerce/core/widgets/loading_indicator.dart';
 import 'package:ecommerce/features/home_tab/domin/entities/category.dart';
 
 import 'package:flutter/material.dart';
@@ -20,21 +21,27 @@ class CategoryItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(100.r),
             child: Container(
+              padding: EdgeInsets.all(5.sp),
               height: 100.h,
               width: 100.w,
-              decoration: const BoxDecoration(shape: BoxShape.circle),
               child: CachedNetworkImage(
                 imageUrl: category.image ?? "",
                 fit: BoxFit.fill,
+                placeholder: (context, url) => const LoadingIndicator(),
+                errorWidget: (context, url, error) =>
+                    const Icon(Icons.error_outline_sharp),
               ),
             ),
           ),
           SizedBox(height: 8.h),
-          Text(
-            category.slug ?? "",
-            style: getRegularStyle(
-              color: ColorManager.darkBlue,
-              fontSize: 14.sp,
+          Expanded(
+            child: Text(
+              textAlign: TextAlign.center,
+              category.slug ?? "",
+              style: getRegularStyle(
+                color: ColorManager.darkBlue,
+                fontSize: 14.sp,
+              ),
             ),
           ),
           SizedBox(height: 10.h),

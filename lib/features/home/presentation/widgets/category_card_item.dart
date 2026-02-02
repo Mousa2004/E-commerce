@@ -1,15 +1,13 @@
 import 'package:ecommerce/core/resources/color_manager.dart';
-import 'package:ecommerce/core/resources/font_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
 import 'package:ecommerce/core/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryCardItem extends StatelessWidget {
-  final String title;
   final String image;
 
-  const CategoryCardItem(this.title, this.image);
+  const CategoryCardItem(this.image);
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +30,8 @@ class CategoryCardItem extends StatelessWidget {
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
-                            title,
-                            style: getBoldStyle(
-                              color: ColorManager.text,
-                              fontSize: FontSize.s16,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
                           SizedBox(
                             width: 110.w,
                             height: 35.h,

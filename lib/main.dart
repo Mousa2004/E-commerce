@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:ecommerce/core/app_bloc_observer.dart';
 import 'package:ecommerce/core/cache/shared_prefrence_utls.dart';
 import 'package:ecommerce/core/injctable/di.dart';
@@ -7,6 +6,7 @@ import 'package:ecommerce/core/routes/route_generator.dart';
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:ecommerce/features/paymant/presentation/cubit/payment_cubit.dart';
+import 'package:ecommerce/features/products/presentation/cubit/product_cubit.dart';
 import 'package:ecommerce/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +29,7 @@ Future<void> main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => getIt<ProductCubit>()),
         BlocProvider(create: (context) => getIt<CartCubit>()),
         BlocProvider(create: (context) => getIt<WishlistCubit>()),
         BlocProvider(create: (context) => getIt<PaymentCubit>()),

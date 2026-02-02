@@ -1,10 +1,7 @@
-import 'package:ecommerce/core/injctable/di.dart';
 import 'package:ecommerce/core/resources/values_manager.dart';
-import 'package:ecommerce/features/subCategories/presentation/cubit/subcategories_cubit.dart';
 import 'package:ecommerce/features/subCategories/presentation/widget/categories_list.dart';
 import 'package:ecommerce/features/subCategories/presentation/widget/sub_categories_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoriesTab extends StatelessWidget {
@@ -12,20 +9,17 @@ class CategoriesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<SubcategoriesCubit>(),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: Insets.s12.w,
-          vertical: Insets.s12.h,
-        ),
-        child: Row(
-          children: [
-            const CategoriesList(),
-            SizedBox(width: Sizes.s16.w),
-            const SubCategoriesList(),
-          ],
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: Insets.s12.w,
+        vertical: Insets.s12.h,
+      ),
+      child: Row(
+        children: [
+          const CategoriesList(),
+          SizedBox(width: Sizes.s16.w),
+          const SubCategoriesList(),
+        ],
       ),
     );
   }

@@ -72,13 +72,16 @@ class CustomBottomNavBarItem extends BottomNavigationBarItem {
     : super(
         label: title,
         icon: ImageIcon(AssetImage(iconPath), color: ColorManager.white),
-        activeIcon: CircleAvatar(
-          radius: 12.r,
-          backgroundColor: ColorManager.white,
+        activeIcon: Container(
+          decoration: BoxDecoration(
+            color: ColorManager.white,
+            borderRadius: BorderRadius.circular(32.r),
+          ),
+          padding: EdgeInsets.all(8.sp),
           child: ImageIcon(
             AssetImage(iconPath),
             color: ColorManager.primary,
-            size: 14,
+            size: 20.sp,
           ),
         ),
       );

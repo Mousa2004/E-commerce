@@ -19,6 +19,6 @@ class ApiEndpoints {
   static const String apiOrderIdTokenPaymant = "api/ecommerce/orders";
   static const String apiRequestTokenPaymant = "api/acceptance/payment_keys";
   static const String apiKeyPayment =
-      "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRFeE1qUTRPU3dpYm1GdFpTSTZJakUzTmpVeE9UUTFOamt1TVRReE5UQTFJbjAuY3VVa01fUWFldDlFbE81ZzRUMlB6aEtGY19DVU5iYktFcnFVaTVQam5tU1l2eFNXMGpsYWdDekI4VVduTDBVTGdaN0pjOUlfaDh3QTJlMGtSR1NwZVE=";
+      "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRFeE1qUTRPU3dpYm1GdFpTSTZJakUzTnpBd05ETTNOREl1TVRFek1USTVJbjAuYkpiVUd6TWxYZWJoNnE4ZV9acXRfY2xkQmtvWG5IVTg0NEhheHJYcUd3WGNWMHVud1p3RnNYSExQYWIyU2FCRVpKNFNCZWh3UlBzMHJLUF9uMWc3bEE=";
   static const int apiIntegrationId = 5422260;
 }

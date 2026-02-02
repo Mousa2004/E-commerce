@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
+import 'package:ecommerce/core/widgets/loading_indicator.dart';
 import 'package:ecommerce/features/home_tab/domin/entities/brand.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,15 +26,21 @@ class BrandItem extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: brand.image ?? "",
                 fit: BoxFit.fill,
+                placeholder: (context, url) => const LoadingIndicator(),
+                errorWidget: (context, url, error) =>
+                    const Icon(Icons.error_outline_sharp),
               ),
             ),
           ),
           SizedBox(height: 8.h),
-          Text(
-            brand.slug ?? "",
-            style: getRegularStyle(
-              color: ColorManager.darkBlue,
-              fontSize: 14.sp,
+          Expanded(
+            child: Text(
+              textAlign: TextAlign.center,
+              brand.slug ?? "",
+              style: getRegularStyle(
+                color: ColorManager.darkBlue,
+                fontSize: 14.sp,
+              ),
             ),
           ),
           SizedBox(height: 10.h),

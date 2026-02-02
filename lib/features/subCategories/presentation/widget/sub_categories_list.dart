@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/injctable/di.dart';
 import 'package:ecommerce/core/resources/assets_manager.dart';
 import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
@@ -6,8 +7,8 @@ import 'package:ecommerce/core/widgets/error_indicator.dart';
 import 'package:ecommerce/core/widgets/loading_indicator.dart';
 import 'package:ecommerce/features/home/presentation/widgets/category_card_item.dart';
 import 'package:ecommerce/features/home/presentation/widgets/sub_category_item.dart';
-import 'package:ecommerce/features/subCategories/presentation/cubit/subcategories_cubit.dart';
-import 'package:ecommerce/features/subCategories/presentation/cubit/subcategories_state.dart';
+import 'package:ecommerce/features/products/presentation/cubit/product_cubit.dart';
+import 'package:ecommerce/features/products/presentation/cubit/product_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,32 +21,44 @@ class SubCategoriesList extends StatefulWidget {
 }
 
 class _SubCategoriesListState extends State<SubCategoriesList> {
+  final viewModel = getIt<ProductCubit>();
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 2,
-      child: BlocBuilder<SubcategoriesCubit, SubcategoriesState>(
+      child: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
-          if (state is SubcategoriesLoadingState) {
+          if (state is ProductLoadingState) {
             return const LoadingIndicator();
-          } else if (state is SubcategoriesErrorState) {
+          } else if (state is ProductErrorState) {
             return ErrorIndicator(state.message);
-          } else if (state is SubcategoriesSeccessState) {
-            final subCategory = state.subcategoriesResponse.data;
+          } else if (state is ProductSuccessState) {
+            final subCategory = state.productList;
+
+            if (subCategory.isEmpty) {
+              return Center(
+                child: Text(
+                  "No items are currently available",
+                  style: getBoldStyle(
+                    color: ColorManager.primary,
+                    fontSize: 15.sp,
+                  ),
+                ),
+              );
+            }
+
             return CustomScrollView(
               slivers: [
                 const SliverToBoxAdapter(
-                  child: CategoryCardItem(
-                    'Laptops',
-                    ImageAssets.categoryCardImage,
-                  ),
+                  child: CategoryCardItem(ImageAssets.categoryCardImage),
                 ),
                 SliverGrid(
                   delegate: SliverChildBuilderDelegate(
-                    childCount: subCategory!.length,
+                    childCount: subCategory.length,
                     (_, index) => SubCategoryItem(
-                      '${subCategory[index].name}',
-                      ImageAssets.subcategoryCardImage,
+                      "${subCategory[index].title}",
+                      "${subCategory[index].imageCover}",
                     ),
                   ),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -58,12 +71,8 @@ class _SubCategoriesListState extends State<SubCategoriesList> {
               ],
             );
           }
-          return Center(
-            child: Text(
-              "No items are currently available",
-              style: getBoldStyle(color: ColorManager.primary),
-            ),
-          );
+
+          return const SizedBox();
         },
       ),
     );
