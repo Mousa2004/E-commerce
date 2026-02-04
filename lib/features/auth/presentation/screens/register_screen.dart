@@ -25,13 +25,17 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final _nameController = TextEditingController(text: "Adbelrahman ayman");
+  final _nameController = TextEditingController(text: "Mohamed ayman");
   final _emailController = TextEditingController(
-    text: "dbelrahmanayman2589@gmail.com",
+    text: "mohamedyasser2589@gmail.com",
   );
-  final _phoneController = TextEditingController(text: "01289745698");
-  final _passwordController = TextEditingController(text: "6292004@mam");
-  final _rePasswordController = TextEditingController(text: "6292004@mam");
+  final _phoneController = TextEditingController(text: "01523963258");
+  final _passwordController = TextEditingController(
+    text: "mohamedahmed2589@mam",
+  );
+  final _rePasswordController = TextEditingController(
+    text: "mohamedahmed2589@mam",
+  );
   var viewModel = getIt<AuthCubit>();
 
   @override
@@ -47,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         } else if (state is AuthSuccessState) {
           UIUtils.hideLoading(context);
           UIUtils.showMessage("Register Successfully");
-          Navigator.of(context).pushReplacementNamed(Routes.home);
+          Navigator.of(context).pushReplacementNamed(Routes.login);
         }
       },
       child: Scaffold(
@@ -99,6 +103,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       isObscured: true,
                       textInputType: TextInputType.text,
                       controller: _passwordController,
+                    ),
+                    SizedBox(height: Sizes.s18.h),
+                    CustomTextField(
+                      hint: 'enter your password',
+                      backgroundColor: ColorManager.white,
+                      label: 'RePassword',
+                      validation: (val) {
+                        return Validator.validateConfirmPassword(
+                          val,
+                          _passwordController.text,
+                        );
+                      },
+                      isObscured: true,
+                      textInputType: TextInputType.text,
+                      controller: _rePasswordController,
                     ),
                     SizedBox(height: Sizes.s50.h),
                     Center(
