@@ -27,9 +27,9 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _nameController = TextEditingController(text: "Mohamed ayman");
   final _emailController = TextEditingController(
-    text: "mohamedyasser2589@gmail.com",
+    text: "mo.ahmed12587@gmail.com",
   );
-  final _phoneController = TextEditingController(text: "01523963258");
+  final _phoneController = TextEditingController(text: "01258963258");
   final _passwordController = TextEditingController(
     text: "mohamedahmed2589@mam",
   );

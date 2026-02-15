@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/resources/assets_manager.dart';
 import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/core/resources/styles_manager.dart';
+import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/features/paymant/presentation/widget/paymob_web_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,8 @@ class PaymentMethodScreen extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () =>
+                        Navigator.of(context).pushReplacementNamed(Routes.cart),
                     icon: const Icon(
                       Icons.arrow_back,
                       color: ColorManager.darkBlue,

@@ -5,7 +5,6 @@ import 'package:ecommerce/core/utils/ui_utils.dart';
 import 'package:ecommerce/core/utils/validator.dart';
 import 'package:ecommerce/core/widgets/custom_elevated_button.dart';
 import 'package:ecommerce/core/widgets/custom_text_field.dart';
-import 'package:ecommerce/core/widgets/loading_indicator.dart';
 import 'package:ecommerce/features/cart/domin/entities/get_cart/get_cart_product.dart';
 import 'package:ecommerce/features/paymant/domin/entities/order_id_paymant/request/item_order_id.dart';
 import 'package:ecommerce/features/paymant/domin/entities/order_id_paymant/request/order_id_paymant_request.dart';
@@ -119,7 +118,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 BlocListener<PaymentCubit, PaymentState>(
                   listener: (context, state) {
                     if (state is RequestTokenPaymentLoadingState) {
-                      const LoadingIndicator();
+                      UIUtils.showLoading(context);
                     } else if (state is RequestTokenPaymentErrorrState) {
                       UIUtils.showMessage(state.message);
                     } else if (state is RequestTokenPaymentSuccessState) {

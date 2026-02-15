@@ -1,6 +1,7 @@
-import 'package:ecommerce/core/widgets/loading_indicator.dart';
+import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lottie/lottie.dart';
 
 class UIUtils {
   static void showLoading(BuildContext context) => showDialog(
@@ -9,11 +10,19 @@ class UIUtils {
     builder: (_) => PopScope(
       canPop: false,
       child: AlertDialog(
+        backgroundColor: ColorManager.transparent,
         content: SizedBox(
-          height: MediaQuery.sizeOf(context).height * 0.2,
-          child: const Column(
+          height: MediaQuery.sizeOf(context).height * 0.3,
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [LoadingIndicator()],
+            children: [
+              Lottie.asset(
+                'assets/svg/loading.json',
+                height: MediaQuery.sizeOf(context).height * 0.28,
+                width: MediaQuery.sizeOf(context).width * 0.3,
+                fit: BoxFit.fill,
+              ),
+            ],
           ),
         ),
       ),
