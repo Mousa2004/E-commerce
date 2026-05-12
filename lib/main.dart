@@ -7,7 +7,7 @@ import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:ecommerce/features/paymant/presentation/cubit/payment_cubit.dart';
 import 'package:ecommerce/features/products/presentation/cubit/product_cubit.dart';
-import 'package:ecommerce/features/wishlist/presentation/cubit/wishlist_cubit.dart';
+import 'package:ecommerce/features/wishlist/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

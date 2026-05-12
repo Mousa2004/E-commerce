@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
               topEnd: Radius.circular(15),
             ),
             child: SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.12.h,
+              height: MediaQuery.sizeOf(context).height * 0.13.h,
               child: BottomNavigationBar(
                 currentIndex: viewModel.currentIndex,
                 onTap: (value) => viewModel.changeSelectedIndex(value),

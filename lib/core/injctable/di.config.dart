@@ -114,8 +114,7 @@ import '../../features/wishlist/domin/use_case/delete_product_from_wishlst_use_c
     as _i49;
 import '../../features/wishlist/domin/use_case/get_product_from_wishlist_use_case.dart'
     as _i971;
-import '../../features/wishlist/presentation/cubit/wishlist_cubit.dart'
-    as _i692;
+import '../../features/wishlist/cubit/wishlist_cubit.dart' as _i692;
 import '../../features/wishlist/wishlist_api/data_sources/remote/remote_wishlist_data_sources_impl.dart'
     as _i1070;
 import '../../features/wishlist/wishlist_api/wishlist_web_service.dart'

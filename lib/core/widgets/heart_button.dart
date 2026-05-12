@@ -1,8 +1,8 @@
 import 'package:ecommerce/core/resources/assets_manager.dart';
 import 'package:ecommerce/core/resources/color_manager.dart';
 import 'package:ecommerce/features/products/domin/entities/product.dart';
-import 'package:ecommerce/features/wishlist/presentation/cubit/wishlist_cubit.dart';
-import 'package:ecommerce/features/wishlist/presentation/cubit/wishlist_state.dart';
+import 'package:ecommerce/features/wishlist/cubit/wishlist_cubit.dart';
+import 'package:ecommerce/features/wishlist/cubit/wishlist_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
